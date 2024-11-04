@@ -65,7 +65,7 @@ const generateRandomAction = (currentLanguage: Language): ActionEntry => {
   };
 };
 
-export default function Component() {
+export default function Agent() {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const [userInput, setUserInput] = useState("");
   const [animatedData, setAnimatedData] = useState<AnimatedData>({
