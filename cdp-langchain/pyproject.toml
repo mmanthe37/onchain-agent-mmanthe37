@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "CDP Agentkit Langchain Extension"
 authors = ["John Peterson <john.peterson@coinbase.com>"]
 readme = "README.md"
-packages = [ { include = "cdp_langchain", exclude = ["tests", "examples"] } ]
+packages = [ { include = "cdp_langchain" } ]
 
 [tool.poetry.dependencies]
 python = "^3.10"
