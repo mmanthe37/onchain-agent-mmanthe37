@@ -138,19 +138,22 @@ export default function Component() {
     return () => clearInterval(dotInterval);
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (!userInput.trim()) return;
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!userInput.trim()) return;
 
-    const userMessage: ActionEntry = {
-      timestamp: new Date(),
-      type: "user",
-      content: userInput.trim(),
-    };
+      const userMessage: ActionEntry = {
+        timestamp: new Date(),
+        type: "user",
+        content: userInput.trim(),
+      };
 
-    setStreamEntries((prev) => [...prev, userMessage].slice(-10));
-    setUserInput("");
-  }, []);
+      setStreamEntries((prev) => [...prev, userMessage].slice(-10));
+      setUserInput("");
+    },
+    [userInput]
+  );
 
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -159,7 +162,7 @@ export default function Component() {
         handleSubmit(e);
       }
     },
-    []
+    [handleSubmit]
   );
 
   useEffect(() => {

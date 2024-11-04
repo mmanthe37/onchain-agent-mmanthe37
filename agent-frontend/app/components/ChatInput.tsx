@@ -36,7 +36,7 @@ export default function ChatInput({
         <textarea
           value={userInput}
           onChange={handleInputChange}
-          onKeyDown={handleKeyPress}
+          onKeyPress={handleKeyPress}
           className={`w-full h-24 lg:h-36 bg-black text-[#5788FA] p-4 pr-10 placeholder-[#5788FA] placeholder-opacity-50 ${
             currentLang === "th" ? notoSansThai.className : ""
           }`}
