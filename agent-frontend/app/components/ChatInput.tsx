@@ -4,16 +4,39 @@ import { notoSansThai } from "../constants";
 import { translations } from "../translations";
 import SendSvg from "../svg/SendSvg";
 
+type PremadeChatInputProps = {
+  text: string;
+  currentLanguage: Language;
+  setUserInput: (input: string) => void;
+};
+
+function PremadeChatInput({
+  text,
+  currentLanguage,
+  setUserInput,
+}: PremadeChatInputProps) {
+  return (
+    <button
+      onClick={() => setUserInput(text)}
+      className={`text-[#5788FA] whitespace-nowrap hover:text-[#3D7BFF] hover:bg-zinc-900 transition-colors border border-[#5788FA]/50 px-2 py-1 rounded-sm ${
+        currentLanguage === "th" ? notoSansThai.className : ""
+      }`}
+    >
+      {text}
+    </button>
+  );
+}
+
 export type ChatInputProps = {
   handleSubmit: (e: React.FormEvent) => void;
   userInput: string;
   setUserInput: (input: string) => void;
   handleKeyPress: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  currentLang: Language;
+  currentLanguage: Language;
 };
 
 export default function ChatInput({
-  currentLang,
+  currentLanguage,
   handleSubmit,
   userInput,
   setUserInput,
@@ -38,43 +61,28 @@ export default function ChatInput({
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           className={`w-full h-24 lg:h-36 bg-black text-[#5788FA] p-4 pr-10 placeholder-[#5788FA] placeholder-opacity-50 ${
-            currentLang === "th" ? notoSansThai.className : ""
+            currentLanguage === "th" ? notoSansThai.className : ""
           }`}
-          placeholder={translations[currentLang].chat.placeholder}
+          placeholder={translations[currentLanguage].chat.placeholder}
           rows={1}
         />
         <div className="px-2 absolute bottom-0.5 right-0 flex items-center justify-between w-full -translate-y-1/2">
           <div className="flex space-x-2 text-xs lg:text-sm ml-2 overflow-x-auto">
-            <button
-              onClick={() =>
-                setUserInput(translations[currentLang].chat.suggestions.send)
-              }
-              className={`text-[#5788FA] whitespace-nowrap hover:text-[#3D7BFF] hover:bg-zinc-900 transition-colors border border-[#5788FA]/50 px-2 py-1 rounded-sm ${
-                currentLang === "th" ? notoSansThai.className : ""
-              }`}
-            >
-              {translations[currentLang].chat.suggestions.send}
-            </button>
-            <button
-              onClick={() =>
-                setUserInput(translations[currentLang].chat.suggestions.create)
-              }
-              className={`text-[#5788FA] whitespace-nowrap hover:text-[#3D7BFF] hover:bg-zinc-900 transition-colors border border-[#5788FA]/50 px-2 py-1 rounded-sm ${
-                currentLang === "th" ? notoSansThai.className : ""
-              }`}
-            >
-              {translations[currentLang].chat.suggestions.create}
-            </button>
-            <button
-              onClick={() =>
-                setUserInput(translations[currentLang].chat.suggestions.swap)
-              }
-              className={`text-[#5788FA] whitespace-nowrap hover:text-[#3D7BFF] hover:bg-zinc-900 transition-colors border border-[#5788FA]/50 px-2 py-1 rounded-sm ${
-                currentLang === "th" ? notoSansThai.className : ""
-              }`}
-            >
-              {translations[currentLang].chat.suggestions.swap}
-            </button>
+            <PremadeChatInput
+              setUserInput={setUserInput}
+              currentLanguage={currentLanguage}
+              text={translations[currentLanguage].chat.suggestions.send}
+            />
+            <PremadeChatInput
+              setUserInput={setUserInput}
+              currentLanguage={currentLanguage}
+              text={translations[currentLanguage].chat.suggestions.create}
+            />
+            <PremadeChatInput
+              setUserInput={setUserInput}
+              currentLanguage={currentLanguage}
+              text={translations[currentLanguage].chat.suggestions.swap}
+            />
           </div>
           <button
             type="submit"

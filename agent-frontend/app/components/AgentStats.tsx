@@ -3,13 +3,13 @@ import { translations } from "../translations";
 import { AnimatedData, Language } from "../types";
 
 type AgentStats = {
-  currentLang: Language;
+  currentLanguage: Language;
   animatedData: AnimatedData;
   walletBalance: number;
 };
 
 export default function AgentStats({
-  currentLang,
+  currentLanguage,
   animatedData,
   walletBalance,
 }: AgentStats) {
@@ -20,24 +20,24 @@ export default function AgentStats({
           ${walletBalance.toFixed(2)}
         </span>
         <ul className="space-y-1 pt-4">
-          <li className={currentLang === "th" ? notoSansThai.className : ""}>
-            {translations[currentLang].profile.stats.earned}: $
+          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+            {translations[currentLanguage].profile.stats.earned}: $
             {animatedData.earned.toFixed(2)}
           </li>
-          <li className={currentLang === "th" ? notoSansThai.className : ""}>
-            {translations[currentLang].profile.stats.spent}: $
+          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+            {translations[currentLanguage].profile.stats.spent}: $
             {animatedData.spent.toFixed(2)}
           </li>
-          <li className={currentLang === "th" ? notoSansThai.className : ""}>
-            {translations[currentLang].profile.stats.nfts}:{" "}
+          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+            {translations[currentLanguage].profile.stats.nfts}:{" "}
             {animatedData.nftsOwned}
           </li>
-          <li className={currentLang === "th" ? notoSansThai.className : ""}>
-            {translations[currentLang].profile.stats.tokens}:{" "}
+          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+            {translations[currentLanguage].profile.stats.tokens}:{" "}
             {animatedData.tokensOwned}
           </li>
-          <li className={currentLang === "th" ? notoSansThai.className : ""}>
-            {translations[currentLang].profile.stats.transactions}:{" "}
+          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+            {translations[currentLanguage].profile.stats.transactions}:{" "}
             {animatedData.transactions}
           </li>
         </ul>

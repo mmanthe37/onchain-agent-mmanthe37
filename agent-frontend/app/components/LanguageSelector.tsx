@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { Language } from "../types";
 
 type LanguageSelectorProps = {
-  currentLang: Language;
+  currentLanguage: Language;
   onLanguageChange: (lang: Language) => void;
 };
 
@@ -13,7 +13,7 @@ const languages = [
 ] as const;
 
 export default function LanguageSelector({
-  currentLang,
+  currentLanguage,
   onLanguageChange,
 }: LanguageSelectorProps) {
   const handleClick = useCallback(
@@ -32,7 +32,7 @@ export default function LanguageSelector({
           className={`
             py-1 text-sm font-medium text-center transition-colors
             ${
-              currentLang === code
+              currentLanguage === code
                 ? "bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]"
                 : "hover:bg-zinc-900 hover:text-[#3D7BFF]"
             }

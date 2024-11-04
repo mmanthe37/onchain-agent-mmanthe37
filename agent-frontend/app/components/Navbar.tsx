@@ -8,16 +8,16 @@ type NavbarProps = {
   setIsMobileMenuOpen: (isOpen: boolean) => void;
   isLiveDotVisible: boolean;
   isMobileMenuOpen: boolean;
-  setCurrentLang: (language: Language) => void;
-  currentLang: Language;
+  setCurrentLanguage: (language: Language) => void;
+  currentLanguage: Language;
 };
 
 export default function Navbar({
   setIsMobileMenuOpen,
   isMobileMenuOpen,
   isLiveDotVisible,
-  setCurrentLang,
-  currentLang,
+  setCurrentLanguage,
+  currentLanguage,
 }: NavbarProps) {
   const handleClick = useCallback(() => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -42,15 +42,15 @@ export default function Navbar({
         />
         <span
           className={`text-sm text-zinc-50 ${
-            currentLang === "th" ? notoSansThai.className : ""
+            currentLanguage === "th" ? notoSansThai.className : ""
           }`}
         >
-          {translations[currentLang].header.liveOn}
+          {translations[currentLanguage].header.liveOn}
         </span>
       </div>
       <LanguageSelector
-        currentLang={currentLang}
-        onLanguageChange={setCurrentLang}
+        currentLanguage={currentLanguage}
+        onLanguageChange={setCurrentLanguage}
       />
     </div>
   );

@@ -15,14 +15,14 @@ import Footer from "./Footer";
 import AgentProfile from "./AgentProfile";
 import AgentStats from "./AgentStats";
 
-const generateRandomThought = (currentLang: Language): ThoughtEntry => {
+const generateRandomThought = (currentLanguage: Language): ThoughtEntry => {
   const thoughts = [
-    translations[currentLang].thoughts.analyzing,
-    translations[currentLang].thoughts.processing,
-    translations[currentLang].thoughts.optimizing,
-    translations[currentLang].thoughts.generating,
-    translations[currentLang].thoughts.evaluating,
-    translations[currentLang].thoughts.simulating,
+    translations[currentLanguage].thoughts.analyzing,
+    translations[currentLanguage].thoughts.processing,
+    translations[currentLanguage].thoughts.optimizing,
+    translations[currentLanguage].thoughts.generating,
+    translations[currentLanguage].thoughts.evaluating,
+    translations[currentLanguage].thoughts.simulating,
   ];
   return {
     timestamp: new Date(),
@@ -30,31 +30,31 @@ const generateRandomThought = (currentLang: Language): ThoughtEntry => {
   };
 };
 
-const generateRandomAction = (currentLang: Language): ActionEntry => {
+const generateRandomAction = (currentLanguage: Language): ActionEntry => {
   const actions = [
     {
       type: "create_wallet" as const,
-      content: `${translations[currentLang].actions.createWallet} 0x453b...3432`,
+      content: `${translations[currentLanguage].actions.createWallet} 0x453b...3432`,
     },
     {
       type: "request_faucet_funds" as const,
-      content: translations[currentLang].actions.requestFunds,
+      content: translations[currentLanguage].actions.requestFunds,
     },
     {
       type: "get_balance" as const,
-      content: `0x4534...d342${translations[currentLang].actions.getBalance} 1003.45 USDC`,
+      content: `0x4534...d342${translations[currentLanguage].actions.getBalance} 1003.45 USDC`,
     },
     {
       type: "transfer_token" as const,
-      content: `${translations[currentLang].actions.transferToken} 100 USDC ${translations[currentLang].actions.to} 0x1234...5678`,
+      content: `${translations[currentLanguage].actions.transferToken} 100 USDC ${translations[currentLanguage].actions.to} 0x1234...5678`,
     },
     {
       type: "transfer_nft" as const,
-      content: `${translations[currentLang].actions.transferNft} #1234 ${translations[currentLang].actions.to} 0x5678...9012`,
+      content: `${translations[currentLanguage].actions.transferNft} #1234 ${translations[currentLanguage].actions.to} 0x5678...9012`,
     },
     {
       type: "swap_token" as const,
-      content: `${translations[currentLang].actions.swapToken} 10 ETH ${translations[currentLang].actions.to} 15000 USDC`,
+      content: `${translations[currentLanguage].actions.swapToken} 10 ETH ${translations[currentLanguage].actions.to} 15000 USDC`,
     },
   ];
   const randomAction = actions[Math.floor(Math.random() * actions.length)];
@@ -80,7 +80,7 @@ export default function Component() {
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>("en");
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
   const [isLiveDotVisible, setIsLiveDotVisible] = useState(true);
 
   useEffect(() => {
@@ -89,8 +89,8 @@ export default function Component() {
       setTimeout(() => {
         const newEntry =
           Math.random() > 0.3
-            ? generateRandomThought(currentLang)
-            : generateRandomAction(currentLang);
+            ? generateRandomThought(currentLanguage)
+            : generateRandomAction(currentLanguage);
         setStreamEntries((prevEntries) =>
           [...prevEntries, newEntry].slice(-10)
         );
@@ -120,7 +120,7 @@ export default function Component() {
       clearInterval(streamInterval);
       clearInterval(dataInterval);
     };
-  }, [currentLang]);
+  }, [currentLanguage]);
 
   useEffect(() => {
     const dotsInterval = setInterval(() => {
@@ -165,10 +165,10 @@ export default function Component() {
     [handleSubmit]
   );
 
-  useEffect(() => {
-    // Clear stream entries when language changes
+  const handleLanguageChange = useCallback((lang: Language) => {
+    setCurrentLanguage(lang);
     setStreamEntries([]);
-  }, [currentLang]);
+  }, []);
 
   return (
     <div className="flex flex-col h-screen bg-black font-mono text-[#5788FA] relative overflow-hidden">
@@ -176,8 +176,8 @@ export default function Component() {
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
         isLiveDotVisible={isLiveDotVisible}
-        setCurrentLang={setCurrentLang}
-        currentLang={currentLang}
+        setCurrentLanguage={handleLanguageChange}
+        currentLanguage={currentLanguage}
       />
 
       <div className="flex flex-grow overflow-hidden relative">
@@ -197,9 +197,9 @@ export default function Component() {
           overflow-y-auto
         `}
         >
-          <AgentProfile currentLang={currentLang} />
+          <AgentProfile currentLanguage={currentLanguage} />
           <AgentStats
-            currentLang={currentLang}
+            currentLanguage={currentLanguage}
             animatedData={animatedData}
             walletBalance={walletBalance}
           />
@@ -207,13 +207,13 @@ export default function Component() {
 
         <div className="flex-grow flex flex-col w-full lg:w-2/3">
           <Stream
-            currentLang={currentLang}
+            currentLanguage={currentLanguage}
             streamEntries={streamEntries}
             isThinking={isThinking}
             loadingDots={loadingDots}
           />
           <ChatInput
-            currentLang={currentLang}
+            currentLanguage={currentLanguage}
             userInput={userInput}
             handleKeyPress={handleKeyPress}
             handleSubmit={handleSubmit}

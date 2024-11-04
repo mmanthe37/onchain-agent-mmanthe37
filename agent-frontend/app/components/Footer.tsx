@@ -13,7 +13,7 @@ export default function Footer() {
       <span className="mx-2">·</span>
       {/* TODO: Replace with a link to the template repo */}
       <a
-        href="https://github.com/coinbase/onchainkit"
+        href="https://github.com/coinbase/onchain-agent-demo"
         target="_blank"
         rel="noopener noreferrer"
         className="hover:text-zinc-300 transition-colors"

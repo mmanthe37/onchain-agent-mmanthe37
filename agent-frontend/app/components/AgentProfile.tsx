@@ -7,10 +7,10 @@ const agentName = "Based Agent";
 const agentWallet = "0x1234...5678";
 
 type AgentProfileProps = {
-  currentLang: Language;
+  currentLanguage: Language;
 };
 
-export default function AgentProfile({ currentLang }: AgentProfileProps) {
+export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
   const [eyePosition, setEyePosition] = useState({ x: 50, y: 50 });
   const [showToast, setShowToast] = useState(false);
   const avatarRef = useRef<SVGSVGElement>(null);
@@ -97,10 +97,10 @@ export default function AgentProfile({ currentLang }: AgentProfileProps) {
 
         <p
           className={`text-base text-[#5788FA] ${
-            currentLang === "th" ? notoSansThai.className : ""
+            currentLanguage === "th" ? notoSansThai.className : ""
           }`}
         >
-          {translations[currentLang].profile.bio}
+          {translations[currentLanguage].profile.bio}
         </p>
       </div>
     </div>
