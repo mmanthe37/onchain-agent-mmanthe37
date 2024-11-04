@@ -1,153 +1,224 @@
-import { useState, useEffect, ChangeEvent, useCallback } from "react";
-import TerminalCursor from "./TerminalCursor";
+import { useState, useEffect, useCallback } from "react";
 
-type ThoughtEntry = {
-  timestamp: Date;
-  content: string;
+import { translations } from "../translations";
+import Navbar from "./Navbar";
+import {
+  ActionEntry,
+  AnimatedData,
+  Language,
+  StreamEntry,
+  ThoughtEntry,
+} from "../types";
+import Stream from "./Stream";
+import ChatInput from "./ChatInput";
+import Footer from "./Footer";
+import AgentProfile from "./AgentProfile";
+import AgentStats from "./AgentStats";
+
+const generateRandomThought = (currentLang: Language): ThoughtEntry => {
+  const thoughts = [
+    translations[currentLang].thoughts.analyzing,
+    translations[currentLang].thoughts.processing,
+    translations[currentLang].thoughts.optimizing,
+    translations[currentLang].thoughts.generating,
+    translations[currentLang].thoughts.evaluating,
+    translations[currentLang].thoughts.simulating,
+  ];
+  return {
+    timestamp: new Date(),
+    content: thoughts[Math.floor(Math.random() * thoughts.length)],
+  };
 };
 
-type AnimatedData = {
-  earned: number;
-  spent: number;
-  staked: number;
-  transactions: number;
-  thoughts: number;
+const generateRandomAction = (currentLang: Language): ActionEntry => {
+  const actions = [
+    {
+      type: "create_wallet" as const,
+      content: `${translations[currentLang].actions.createWallet} 0x453b...3432`,
+    },
+    {
+      type: "request_faucet_funds" as const,
+      content: translations[currentLang].actions.requestFunds,
+    },
+    {
+      type: "get_balance" as const,
+      content: `0x4534...d342${translations[currentLang].actions.getBalance} 1003.45 USDC`,
+    },
+    {
+      type: "transfer_token" as const,
+      content: `${translations[currentLang].actions.transferToken} 100 USDC ${translations[currentLang].actions.to} 0x1234...5678`,
+    },
+    {
+      type: "transfer_nft" as const,
+      content: `${translations[currentLang].actions.transferNft} #1234 ${translations[currentLang].actions.to} 0x5678...9012`,
+    },
+    {
+      type: "swap_token" as const,
+      content: `${translations[currentLang].actions.swapToken} 10 ETH ${translations[currentLang].actions.to} 15000 USDC`,
+    },
+  ];
+  const randomAction = actions[Math.floor(Math.random() * actions.length)];
+  return {
+    timestamp: new Date(),
+    type: randomAction.type,
+    content: randomAction.content,
+  };
 };
 
-export default function AgentComponent() {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [thoughts, setThoughts] = useState<ThoughtEntry[]>([]);
+export default function Component() {
+  const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const [userInput, setUserInput] = useState("");
   const [animatedData, setAnimatedData] = useState<AnimatedData>({
     earned: 10000,
     spent: 4000,
-    staked: 1000,
+    nftsOwned: 3,
+    tokensOwned: 0,
     transactions: 0,
     thoughts: 900,
   });
-
-  const generateRandomThought = useCallback((): ThoughtEntry => {
-    const thoughts = [
-      "Analyzing data patterns...",
-      "Processing natural language input...",
-      "Optimizing neural networks...",
-      "Generating creative solutions...",
-      "Evaluating ethical implications...",
-      "Simulating complex scenarios...",
-      "Integrating cross-domain knowledge...",
-      "Refining machine learning models...",
-      "Exploring innovative algorithms...",
-      "Synthesizing information from multiple sources...",
-    ];
-    return {
-      timestamp: new Date(),
-      content: thoughts[Math.floor(Math.random() * thoughts.length)],
-    };
-  }, []);
-
-  const formatGMTDate = useCallback((date: Date) => {
-    return date.toISOString().replace("T", " ").slice(0, -5);
-  }, []);
+  const [walletBalance, setWalletBalance] = useState(5000); // Initial wallet balance
+  const [isThinking, setIsThinking] = useState(true);
+  const [loadingDots, setLoadingDots] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState<Language>("en");
+  const [isLiveDotVisible, setIsLiveDotVisible] = useState(true);
 
   useEffect(() => {
-    const timeInterval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    const thoughtInterval = setInterval(() => {
-      const newThought = generateRandomThought();
-      setThoughts((prevThoughts) => [...prevThoughts, newThought].slice(-10));
-      setAnimatedData((prev) => ({
-        ...prev,
-        thoughts: prev.thoughts + 1,
-      }));
+    const streamInterval = setInterval(() => {
+      setIsThinking(true);
+      setTimeout(() => {
+        const newEntry =
+          Math.random() > 0.3
+            ? generateRandomThought(currentLang)
+            : generateRandomAction(currentLang);
+        setStreamEntries((prevEntries) =>
+          [...prevEntries, newEntry].slice(-10)
+        );
+        setAnimatedData((prev) => ({
+          ...prev,
+          thoughts: prev.thoughts + (newEntry.type === undefined ? 1 : 0),
+          transactions:
+            prev.transactions + (newEntry.type !== undefined ? 1 : 0),
+        }));
+        setIsThinking(false);
+      }, 1500);
     }, 3000);
 
     const dataInterval = setInterval(() => {
       setAnimatedData((prev) => ({
         earned: prev.earned + Math.random() * 10,
         spent: prev.spent + Math.random() * 5,
-        staked: prev.staked + Math.random() * 2,
-        transactions: prev.transactions + (Math.random() > 0.7 ? 1 : 0),
+        nftsOwned: prev.nftsOwned + (Math.random() > 0.95 ? 1 : 0),
+        tokensOwned: prev.tokensOwned + (Math.random() > 0.98 ? 1 : 0),
+        transactions: prev.transactions,
         thoughts: prev.thoughts,
       }));
+      setWalletBalance((prev) => prev + (Math.random() - 0.5) * 100);
     }, 2000);
 
     return () => {
-      clearInterval(timeInterval);
-      clearInterval(thoughtInterval);
+      clearInterval(streamInterval);
       clearInterval(dataInterval);
     };
-  }, [generateRandomThought]);
+  }, [currentLang]);
 
-  const handleInputChange = useCallback(
-    (e: ChangeEvent<HTMLTextAreaElement>) => {
-      setUserInput(e.target.value);
+  useEffect(() => {
+    const dotsInterval = setInterval(() => {
+      setLoadingDots((prev) => (prev.length >= 3 ? "" : prev + "."));
+    }, 500);
+
+    return () => clearInterval(dotsInterval);
+  }, []);
+
+  useEffect(() => {
+    const dotInterval = setInterval(() => {
+      setIsLiveDotVisible((prev) => !prev);
+    }, 1000);
+
+    return () => clearInterval(dotInterval);
+  }, []);
+
+  const handleSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if (!userInput.trim()) return;
+
+    const userMessage: ActionEntry = {
+      timestamp: new Date(),
+      type: "user",
+      content: userInput.trim(),
+    };
+
+    setStreamEntries((prev) => [...prev, userMessage].slice(-10));
+    setUserInput("");
+  }, []);
+
+  const handleKeyPress = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit(e);
+      }
     },
     []
   );
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      console.log("User input:", userInput);
-      setUserInput("");
-    },
-    [userInput]
-  );
+  useEffect(() => {
+    // Clear stream entries when language changes
+    setStreamEntries([]);
+  }, [currentLang]);
 
   return (
-    <div className="flex flex-col h-screen bg-black font-mono ock-text-primary">
-      <div className="p-4 flex items-center justify-between border-b border-[#5788FA]">
-        <h1 className="text-xl font-bold">Based Agent</h1>
-        <div className="text-sm" aria-live="polite">
-          {formatGMTDate(currentTime)} GMT
+    <div className="flex flex-col h-screen bg-black font-mono text-[#5788FA] relative overflow-hidden">
+      <Navbar
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+        isLiveDotVisible={isLiveDotVisible}
+        setCurrentLang={setCurrentLang}
+        currentLang={currentLang}
+      />
+
+      <div className="flex flex-grow overflow-hidden relative">
+        <div
+          className={`
+          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0
+          fixed lg:relative
+          w-full lg:w-1/3 
+          h-full
+          bg-black
+          z-20 lg:z-0
+          transition-transform
+          duration-300
+          p-2 lg:border-r lg:border-[#5788FA]/50 
+          flex flex-col 
+          overflow-y-auto
+        `}
+        >
+          <AgentProfile currentLang={currentLang} />
+          <AgentStats
+            currentLang={currentLang}
+            animatedData={animatedData}
+            walletBalance={walletBalance}
+          />
+        </div>
+
+        <div className="flex-grow flex flex-col w-full lg:w-2/3">
+          <Stream
+            currentLang={currentLang}
+            streamEntries={streamEntries}
+            isThinking={isThinking}
+            loadingDots={loadingDots}
+          />
+          <ChatInput
+            currentLang={currentLang}
+            userInput={userInput}
+            handleKeyPress={handleKeyPress}
+            handleSubmit={handleSubmit}
+            setUserInput={setUserInput}
+          />
         </div>
       </div>
-      <div className="flex flex-grow overflow-hidden">
-        <div className="flex-grow p-4 overflow-y-auto">
-          <p>Streaming real-time thoughts and actions...</p>
-          <div className="mt-4 space-y-2" role="log" aria-live="polite">
-            {thoughts.map((thought, index) => (
-              <div key={index} className="flex">
-                <span className="mr-2 ock-text-primary">
-                  {formatGMTDate(thought.timestamp)}
-                </span>
-                <span>{thought.content}</span>
-              </div>
-            ))}
-          </div>
-          <TerminalCursor />
-        </div>
-        <div className="w-1/3 p-4 border-l border-[#5788FA] flex flex-col">
-          <div className="mb-4 p-4 border border-[#5788FA]">
-            <ul className="space-y-1">
-              <li>Earned: ${animatedData.earned.toFixed(2)}</li>
-              <li>Spent: ${animatedData.spent.toFixed(2)}</li>
-              <li>Staked: ${animatedData.staked.toFixed(2)}</li>
-              <li>Transactions: {animatedData.transactions}</li>
-              <li>Thoughts: {animatedData.thoughts}</li>
-              <li>Friends: {animatedData.transactions}</li>
-            </ul>
-          </div>
-          <form onSubmit={handleSubmit} className="flex-grow flex flex-col">
-            <div className="relative flex-grow">
-              <textarea
-                value={userInput}
-                onChange={handleInputChange}
-                className="w-full h-full bg-black border border-[#5788FA] ock-text-primary p-2 pb-12 resize-none placeholder-[#5788FA] placeholder-opacity-50"
-                placeholder="Type your prompt here..."
-              />
-              <button
-                type="submit"
-                className="absolute rounded bottom-2 right-2 ock-bg-primary text-black px-6 py-1.5 hover:bg-[#3D7BFF] transition-colors"
-              >
-                Send
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }
