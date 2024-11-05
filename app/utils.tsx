@@ -1,4 +1,4 @@
-import { ActionEntry, Language, ThoughtEntry } from './types';
+import type { ActionEntry, Language, ThoughtEntry } from './types';
 import NftSvg from './svg/NftSvg';
 import RequestSvg from './svg/RequestSvg';
 import SendSvg from './svg/SendSvg';

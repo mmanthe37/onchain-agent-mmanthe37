@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { notoSansThai } from '../constants';
 import { translations } from '../translations';
-import { Language, StreamEntry } from '../types';
+import type { Language, StreamEntry } from '../types';
 import { getActionIcon } from '../utils';
 import TimeDisplay from './TimeDisplay';
 

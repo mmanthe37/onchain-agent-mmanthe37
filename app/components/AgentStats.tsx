@@ -1,6 +1,6 @@
 import { AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
 import { translations } from '../translations';
-import { Language } from '../types';
+import type { Language } from '../types';
 import { useBalance } from 'wagmi';
 
 type AgentStats = {
@@ -25,7 +25,7 @@ export default function AgentStats({ currentLanguage }: AgentStats) {
     <div className="mb-4 mr-2 bg-black border border-[#5788FA]/50 rounded-sm">
       <div className="flex flex-col items-start p-4">
         <span className="text-2xl font-bold text-[#5788FA]">
-          {`${parseFloat(data?.formatted || '').toFixed(6)} ETH`}
+          {`${Number.parseFloat(data?.formatted || '').toFixed(6)} ETH`}
         </span>
         {/* TODO: update with actual data */}
         <ul className="space-y-1 pt-4">

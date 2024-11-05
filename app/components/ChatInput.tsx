@@ -1,5 +1,5 @@
-import { ChangeEvent, useCallback } from 'react';
-import { Language } from '../types';
+import { type ChangeEvent, useCallback } from 'react';
+import type { Language } from '../types';
 import { notoSansThai } from '../constants';
 import { translations } from '../translations';
 import SendSvg from '../svg/SendSvg';

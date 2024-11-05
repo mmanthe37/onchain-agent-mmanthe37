@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import Navbar from './Navbar';
-import { ActionEntry, AgentMessage, Language, StreamEntry } from '../types';
+import type { ActionEntry, AgentMessage, Language, StreamEntry } from '../types';
 import Stream from './Stream';
 import ChatInput from './ChatInput';
 import Footer from './Footer';

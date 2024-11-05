@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { translations } from '../translations';
-import { Language } from '../types';
+import type { Language } from '../types';
 import LanguageSelector from './LanguageSelector';
 import { notoSansThai } from '../constants';
 
