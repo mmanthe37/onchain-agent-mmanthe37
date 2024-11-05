@@ -29,3 +29,8 @@ export type AnimatedData = {
   transactions: number;
   thoughts: number;
 };
+
+export type AgentMessage = {
+  data?: string;
+  event?: string;
+};

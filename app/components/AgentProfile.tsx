@@ -1,10 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Language } from "../types";
-import { notoSansThai } from "../constants";
+import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from "../constants";
 import { translations } from "../translations";
-
-const agentName = "Based Agent";
-const agentWallet = "0x1234...5678";
 
 type AgentProfileProps = {
   currentLanguage: Language;
@@ -17,7 +14,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
 
   const copyToClipboard = useCallback(() => {
     navigator.clipboard
-      .writeText(agentWallet)
+      .writeText(AGENT_WALLET_ADDRESS)
       .then(() => {
         setShowToast(true);
         setTimeout(() => setShowToast(false), 2000); // Hide toast after 2 seconds
@@ -55,6 +52,12 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const formattedAddress = useMemo(() => {
+    return `${AGENT_WALLET_ADDRESS.slice(0, 6)}...${AGENT_WALLET_ADDRESS.slice(
+      -4
+    )}`;
+  }, []);
+
   return (
     <div className="mb-4">
       <div className="flex flex-col space-y-4 py-2">
@@ -78,13 +81,13 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </svg>
 
           <div className="flex flex-col justify-center space-y-2">
-            <h2 className="text-xl font-bold text-[#5788FA]">{agentName}</h2>
+            <h2 className="text-xl font-bold text-[#5788FA]">{AGENT_NAME}</h2>
             <div className="relative inline-flex items-center group">
               <button
                 onClick={copyToClipboard}
                 className="text-sm text-[#5788FA] hover:text-[#3D7BFF] transition-colors"
               >
-                {agentWallet}
+                {formattedAddress}
               </button>
               {showToast && (
                 <div className="absolute top-full left-0 mt-2 bg-[#5788FA] text-zinc-950 text-xs px-2 py-1 rounded-xs">

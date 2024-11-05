@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { notoSansThai } from "../constants";
 import { translations } from "../translations";
 import { Language, StreamEntry } from "../types";
@@ -52,8 +53,15 @@ export default function Stream({
   isThinking,
   loadingDots,
 }: StreamProps) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scrolls to the bottom of the chat when messages change
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [streamEntries]);
+  
   return (
-    <div className="flex-grow p-4 pb-40 overflow-y-auto">
+    <div className="flex-grow p-4 pb-20 overflow-y-auto">
       <p
         className={`text-zinc-500 ${
           currentLanguage === "th" ? notoSansThai.className : ""
@@ -82,6 +90,7 @@ export default function Stream({
           </span>
         </div>
       )}
+      <div className="mt-3" ref={bottomRef} />
     </div>
   );
 }
