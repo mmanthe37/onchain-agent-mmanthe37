@@ -34,6 +34,7 @@ export default function Agent() {
 
   const { postChat, isLoading } = useChat({ onSuccess: handleSuccess });
 
+  // enables live stream of agent thoughts
   useEffect(() => {
     const streamInterval = setInterval(() => {
       if (!isLoading && !isChatMode) {
@@ -46,6 +47,7 @@ export default function Agent() {
     };
   }, [isLoading, postChat, isChatMode]);
 
+  // enables dot animation for "agent is thinking..."
   useEffect(() => {
     const dotsInterval = setInterval(() => {
       setLoadingDots((prev) => (prev.length >= 3 ? "" : prev + "."));
@@ -54,6 +56,7 @@ export default function Agent() {
     return () => clearInterval(dotsInterval);
   }, []);
 
+  // enables glowing live on sepolia dot
   useEffect(() => {
     const dotInterval = setInterval(() => {
       setIsLiveDotVisible((prev) => !prev);
@@ -67,6 +70,7 @@ export default function Agent() {
       e.preventDefault();
       if (!userInput.trim()) return;
 
+      // disable live stream
       setIsChatMode(true);
       setUserInput("");
 
