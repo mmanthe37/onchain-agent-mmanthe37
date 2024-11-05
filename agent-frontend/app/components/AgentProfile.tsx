@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Language } from "../types";
 import { notoSansThai } from "../constants";
 import { translations } from "../translations";
@@ -15,7 +15,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
   const [showToast, setShowToast] = useState(false);
   const avatarRef = useRef<SVGSVGElement>(null);
 
-  const copyToClipboard = () => {
+  const copyToClipboard = useCallback(() => {
     navigator.clipboard
       .writeText(agentWallet)
       .then(() => {
@@ -25,7 +25,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
       .catch((err) => {
         console.error("Failed to copy wallet address: ", err);
       });
-  };
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
