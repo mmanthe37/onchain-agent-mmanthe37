@@ -122,7 +122,7 @@ export default function Agent() {
       <div className="relative flex flex-grow overflow-hidden">
         <div
           className={`
-          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed z-20 flex h-full w-full flex-col overflow-y-auto bg-black p-2 transition-transform duration-300 lg:relative lg:z-0 lg:w-1/3 lg:border-[#5788FA]/50 lg:border-r `}
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} fixed z-20 flex h-full w-full flex-col overflow-y-auto bg-black p-2 transition-transform duration-300 lg:relative lg:z-0 lg:w-1/3 lg:translate-x-0 lg:border-[#5788FA]/50 lg:border-r `}
         >
           <AgentProfile currentLanguage={currentLanguage} />
           <AgentStats currentLanguage={currentLanguage} />
