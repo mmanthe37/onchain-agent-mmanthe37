@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Language } from '../types';
 import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
 import { translations } from '../translations';
+import type { Language } from '../types';
 
 type AgentProfileProps = {
   currentLanguage: Language;
