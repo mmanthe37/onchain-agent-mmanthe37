@@ -22,9 +22,9 @@ export default function AgentStats({ currentLanguage }: AgentStats) {
     query: { refetchInterval: 5000 },
   });
   return (
-    <div className="mb-4 mr-2 bg-black border border-[#5788FA]/50 rounded-sm">
+    <div className="mr-2 mb-4 rounded-sm border border-[#5788FA]/50 bg-black">
       <div className="flex flex-col items-start p-4">
-        <span className="text-2xl font-bold text-[#5788FA]">
+        <span className="font-bold text-2xl text-[#5788FA]">
           {`${Number.parseFloat(data?.formatted || '').toFixed(6)} ETH`}
         </span>
         {/* TODO: update with actual data */}

@@ -81,16 +81,16 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </svg>
 
           <div className="flex flex-col justify-center space-y-2">
-            <h2 className="text-xl font-bold text-[#5788FA]">{AGENT_NAME}</h2>
-            <div className="relative inline-flex items-center group">
+            <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
+            <div className="group relative inline-flex items-center">
               <button
                 onClick={copyToClipboard}
-                className="text-sm text-[#5788FA] hover:text-[#3D7BFF] transition-colors"
+                className="text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF]"
               >
                 {formattedAddress}
               </button>
               {showToast && (
-                <div className="absolute top-full left-0 mt-2 bg-[#5788FA] text-zinc-950 text-xs px-2 py-1 rounded-xs">
+                <div className="absolute top-full left-0 mt-2 rounded-xs bg-[#5788FA] px-2 py-1 text-xs text-zinc-950">
                   Copied
                 </div>
               )}
@@ -99,7 +99,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
         </div>
 
         <p
-          className={`text-base text-[#5788FA] ${
+          className={`text-[#5788FA] text-base ${
             currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >

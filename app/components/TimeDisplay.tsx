@@ -22,7 +22,7 @@ export default function TimeDisplay({ timestamp }: TimeDisplayProps) {
   }, [timestamp]);
 
   return (
-    <div className="text-xs text-gray-500" aria-live="polite">
+    <div className="text-gray-500 text-xs" aria-live="polite">
       {formattedTime} ICT
     </div>
   );

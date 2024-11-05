@@ -61,7 +61,7 @@ export default function Stream({
   }, [streamEntries]);
 
   return (
-    <div className="flex-grow p-4 pb-20 overflow-y-auto">
+    <div className="flex-grow overflow-y-auto p-4 pb-20">
       <p
         className={`text-zinc-500 ${
           currentLanguage === 'th' ? notoSansThai.className : ''
@@ -79,7 +79,7 @@ export default function Stream({
         ))}
       </div>
       {isThinking && (
-        <div className="flex items-center mt-4 text-[#5788FA] opacity-70">
+        <div className="mt-4 flex items-center text-[#5788FA] opacity-70">
           <span
             className={`font-mono ${
               currentLanguage === 'th' ? notoSansThai.className : ''

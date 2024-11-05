@@ -1,7 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import Navbar from './Navbar';
-import type { ActionEntry, AgentMessage, Language, StreamEntry } from '../types';
+import type {
+  ActionEntry,
+  AgentMessage,
+  Language,
+  StreamEntry,
+} from '../types';
 import Stream from './Stream';
 import ChatInput from './ChatInput';
 import Footer from './Footer';
@@ -50,7 +55,7 @@ export default function Agent() {
   // enables dot animation for "agent is thinking..."
   useEffect(() => {
     const dotsInterval = setInterval(() => {
-      setLoadingDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
+      setLoadingDots((prev) => (prev.length >= 3 ? '' : `${prev}.`));
     }, 500);
 
     return () => clearInterval(dotsInterval);
@@ -68,7 +73,9 @@ export default function Agent() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!userInput.trim()) return;
+      if (!userInput.trim()) {
+        return;
+      }
 
       // disable live stream
       setIsChatMode(true);
@@ -103,7 +110,7 @@ export default function Agent() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen bg-black font-mono text-[#5788FA] relative overflow-hidden">
+    <div className="relative flex h-screen flex-col overflow-hidden bg-black font-mono text-[#5788FA]">
       <Navbar
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -112,28 +119,16 @@ export default function Agent() {
         currentLanguage={currentLanguage}
       />
 
-      <div className="flex flex-grow overflow-hidden relative">
+      <div className="relative flex flex-grow overflow-hidden">
         <div
           className={`
-          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-          lg:translate-x-0
-          fixed lg:relative
-          w-full lg:w-1/3 
-          h-full
-          bg-black
-          z-20 lg:z-0
-          transition-transform
-          duration-300
-          p-2 lg:border-r lg:border-[#5788FA]/50 
-          flex flex-col 
-          overflow-y-auto
-        `}
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed z-20 flex h-full w-full flex-col overflow-y-auto bg-black p-2 transition-transform duration-300 lg:relative lg:z-0 lg:w-1/3 lg:border-[#5788FA]/50 lg:border-r `}
         >
           <AgentProfile currentLanguage={currentLanguage} />
           <AgentStats currentLanguage={currentLanguage} />
         </div>
 
-        <div className="flex-grow flex flex-col w-full lg:w-2/3">
+        <div className="flex w-full flex-grow flex-col lg:w-2/3">
           <Stream
             currentLanguage={currentLanguage}
             streamEntries={streamEntries}
