@@ -58,7 +58,7 @@ export default function Stream({
   useEffect(() => {
     // Scrolls to the bottom of the chat when messages change
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [streamEntries]);
+  }, []);
 
   return (
     <div className="flex-grow overflow-y-auto p-4 pb-20">
@@ -70,9 +70,9 @@ export default function Stream({
         {translations[currentLanguage].stream.realTime}
       </p>
       <div className="mt-4 space-y-2" role="log" aria-live="polite">
-        {streamEntries.map((entry, index) => (
+        {streamEntries.map((entry) => (
           <StreamEntryItem
-            key={index}
+            key={entry.timestamp.toDateString()}
             entry={entry}
             currentLanguage={currentLanguage}
           />

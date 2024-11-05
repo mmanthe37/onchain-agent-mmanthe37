@@ -84,6 +84,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
             <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
             <div className="group relative inline-flex items-center">
               <button
+                type="button"
                 onClick={copyToClipboard}
                 className="text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF]"
               >

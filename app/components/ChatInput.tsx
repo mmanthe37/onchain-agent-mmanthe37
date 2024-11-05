@@ -17,6 +17,7 @@ function PremadeChatInput({
 }: PremadeChatInputProps) {
   return (
     <button
+      type="submit"
       onClick={() => setUserInput(text)}
       className={`whitespace-nowrap rounded-sm border border-[#5788FA]/50 px-2 py-1 text-[#5788FA] transition-colors hover:bg-zinc-900 hover:text-[#3D7BFF] ${
         currentLanguage === 'th' ? notoSansThai.className : ''

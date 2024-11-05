@@ -26,7 +26,7 @@ export default function Navbar({
   return (
     <div className="flex items-center justify-between border-[#5788FA]/50 border-b p-2">
       <div className="flex items-center space-x-2">
-        <button className="mr-2 lg:hidden" onClick={handleClick}>
+        <button className="mr-2 lg:hidden" onClick={handleClick} type="button">
           ☰
         </button>
         <div

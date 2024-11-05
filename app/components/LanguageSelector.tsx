@@ -26,6 +26,7 @@ export default function LanguageSelector({
     <div className="inline-flex overflow-hidden rounded-sm border border-[#5788FA]/50">
       {languages.map(({ code, label }) => (
         <button
+          type="button"
           key={code}
           onClick={handleClick(code)}
           style={{ width: '44px' }}
