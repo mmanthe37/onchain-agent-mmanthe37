@@ -70,9 +70,9 @@ export default function Stream({
         {translations[currentLanguage].stream.realTime}
       </p>
       <div className="mt-4 space-y-2" role="log" aria-live="polite">
-        {streamEntries.map((entry) => (
+        {streamEntries.map((entry, index) => (
           <StreamEntryItem
-            key={entry.timestamp.toDateString()}
+            key={`${entry.timestamp.toDateString()}-${index}`}
             entry={entry}
             currentLanguage={currentLanguage}
           />
