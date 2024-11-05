@@ -8,7 +8,12 @@
     "dev": "concurrently \"bun run next-dev\" \"bun run flask-dev\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "format": "biome format --write .",
+    "lint": "biome lint --write .",
+    "lint:unsafe": "biome lint --write --unsafe .",
+    "ci:check": "biome ci --formatter-enabled=false --linter-enabled=false",
+    "ci:format": "biome ci --linter-enabled=false --organize-imports-enabled=false",
+    "ci:lint": "biome ci --formatter-enabled=false --organize-imports-enabled=false"
   },
   "dependencies": {
     "@coinbase/onchainkit": "latest",
@@ -18,6 +23,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

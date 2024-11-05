@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Language } from "../types";
-import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from "../constants";
-import { translations } from "../translations";
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
+import { translations } from '../translations';
+import type { Language } from '../types';
 
 type AgentProfileProps = {
   currentLanguage: Language;
@@ -20,7 +20,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
         setTimeout(() => setShowToast(false), 2000); // Hide toast after 2 seconds
       })
       .catch((err) => {
-        console.error("Failed to copy wallet address: ", err);
+        console.error('Failed to copy wallet address: ', err);
       });
   }, []);
 
@@ -37,24 +37,24 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
 
         const normalizedX = Math.min(
           Math.max((dx / maxDistance) * 30 + 50, 20),
-          80
+          80,
         );
         const normalizedY = Math.min(
           Math.max((dy / maxDistance) * 30 + 50, 20),
-          80
+          80,
         );
 
         setEyePosition({ x: normalizedX, y: normalizedY });
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const formattedAddress = useMemo(() => {
     return `${AGENT_WALLET_ADDRESS.slice(0, 6)}...${AGENT_WALLET_ADDRESS.slice(
-      -4
+      -4,
     )}`;
   }, []);
 
@@ -81,16 +81,17 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </svg>
 
           <div className="flex flex-col justify-center space-y-2">
-            <h2 className="text-xl font-bold text-[#5788FA]">{AGENT_NAME}</h2>
-            <div className="relative inline-flex items-center group">
+            <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
+            <div className="group relative inline-flex items-center">
               <button
+                type="button"
                 onClick={copyToClipboard}
-                className="text-sm text-[#5788FA] hover:text-[#3D7BFF] transition-colors"
+                className="text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF]"
               >
                 {formattedAddress}
               </button>
               {showToast && (
-                <div className="absolute top-full left-0 mt-2 bg-[#5788FA] text-zinc-950 text-xs px-2 py-1 rounded-xs">
+                <div className="absolute top-full left-0 mt-2 rounded-xs bg-[#5788FA] px-2 py-1 text-xs text-zinc-950">
                   Copied
                 </div>
               )}
@@ -99,8 +100,8 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
         </div>
 
         <p
-          className={`text-base text-[#5788FA] ${
-            currentLanguage === "th" ? notoSansThai.className : ""
+          className={`text-[#5788FA] text-base ${
+            currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >
           {translations[currentLanguage].profile.bio}

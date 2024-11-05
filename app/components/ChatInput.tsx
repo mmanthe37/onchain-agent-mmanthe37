@@ -1,8 +1,8 @@
-import { ChangeEvent, useCallback } from "react";
-import { Language } from "../types";
-import { notoSansThai } from "../constants";
-import { translations } from "../translations";
-import SendSvg from "../svg/SendSvg";
+import { type ChangeEvent, useCallback } from 'react';
+import { notoSansThai } from '../constants';
+import SendSvg from '../svg/SendSvg';
+import { translations } from '../translations';
+import type { Language } from '../types';
 
 type PremadeChatInputProps = {
   text: string;
@@ -17,9 +17,10 @@ function PremadeChatInput({
 }: PremadeChatInputProps) {
   return (
     <button
+      type="submit"
       onClick={() => setUserInput(text)}
-      className={`text-[#5788FA] whitespace-nowrap hover:text-[#3D7BFF] hover:bg-zinc-900 transition-colors border border-[#5788FA]/50 px-2 py-1 rounded-sm ${
-        currentLanguage === "th" ? notoSansThai.className : ""
+      className={`whitespace-nowrap rounded-sm border border-[#5788FA]/50 px-2 py-1 text-[#5788FA] transition-colors hover:bg-zinc-900 hover:text-[#3D7BFF] ${
+        currentLanguage === 'th' ? notoSansThai.className : ''
       }`}
     >
       {text}
@@ -47,27 +48,27 @@ export default function ChatInput({
     (e: ChangeEvent<HTMLTextAreaElement>) => {
       setUserInput(e.target.value);
     },
-    [setUserInput]
+    [setUserInput],
   );
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col w-full border-t border-[#5788FA]/50 bg-black pb-10 p-2 lg:pb-2"
+      className="flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-2 pb-10 lg:pb-2"
     >
       <div className="flex flex-col">
         <textarea
           value={userInput}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
-          className={`w-full h-24 lg:h-36 bg-black text-[#5788FA] p-4 pr-10 placeholder-[#5788FA] placeholder-opacity-50 ${
-            currentLanguage === "th" ? notoSansThai.className : ""
+          className={`h-24 w-full bg-black p-4 pr-10 text-[#5788FA] placeholder-[#5788FA] placeholder-opacity-50 lg:h-36 ${
+            currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
           placeholder={translations[currentLanguage].chat.placeholder}
           rows={1}
         />
-        <div className="px-2 flex items-center justify-between w-full pt-4">
-          <div className="flex space-x-2 text-xs lg:text-sm ml-2 overflow-x-auto">
+        <div className="flex w-full items-center justify-between px-2 pt-4">
+          <div className="ml-2 flex space-x-2 overflow-x-auto text-xs lg:text-sm">
             <PremadeChatInput
               setUserInput={setUserInput}
               currentLanguage={currentLanguage}
@@ -87,10 +88,10 @@ export default function ChatInput({
           <button
             type="submit"
             disabled={!/[a-zA-Z]/.test(userInput)}
-            className={`p-1.5 rounded-sm transition-colors ${
+            className={`rounded-sm p-1.5 transition-colors ${
               /[a-zA-Z]/.test(userInput)
-                ? "bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]"
-                : "bg-[#5788FA] text-zinc-950 opacity-50 cursor-not-allowed"
+                ? 'bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]'
+                : 'cursor-not-allowed bg-[#5788FA] text-zinc-950 opacity-50'
             }`}
           >
             <SendSvg />
