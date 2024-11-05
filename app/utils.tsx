@@ -1,4 +1,3 @@
-import type { ActionEntry, Language, ThoughtEntry } from './types';
 import NftSvg from './svg/NftSvg';
 import RequestSvg from './svg/RequestSvg';
 import SendSvg from './svg/SendSvg';
@@ -6,6 +5,7 @@ import SwapSvg from './svg/SwapSvg';
 import TokenSvg from './svg/TokenSvg';
 import WalletSvg from './svg/WalletSvg';
 import { translations } from './translations';
+import type { ActionEntry, Language, ThoughtEntry } from './types';
 
 export const getActionIcon = (type: ActionEntry['type']) => {
   switch (type) {

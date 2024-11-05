@@ -1,8 +1,8 @@
 import { type ChangeEvent, useCallback } from 'react';
-import type { Language } from '../types';
 import { notoSansThai } from '../constants';
-import { translations } from '../translations';
 import SendSvg from '../svg/SendSvg';
+import { translations } from '../translations';
+import type { Language } from '../types';
 
 type PremadeChatInputProps = {
   text: string;

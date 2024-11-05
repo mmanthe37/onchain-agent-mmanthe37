@@ -1,18 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import Navbar from './Navbar';
+import useChat from '../hooks/useChat';
 import type {
   ActionEntry,
   AgentMessage,
   Language,
   StreamEntry,
 } from '../types';
-import Stream from './Stream';
-import ChatInput from './ChatInput';
-import Footer from './Footer';
 import AgentProfile from './AgentProfile';
 import AgentStats from './AgentStats';
-import useChat from '../hooks/useChat';
+import ChatInput from './ChatInput';
+import Footer from './Footer';
+import Navbar from './Navbar';
+import Stream from './Stream';
 
 export default function Agent() {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);

@@ -1,7 +1,7 @@
+import { useBalance } from 'wagmi';
 import { AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
 import { translations } from '../translations';
 import type { Language } from '../types';
-import { useBalance } from 'wagmi';
 
 type AgentStats = {
   currentLanguage: Language;

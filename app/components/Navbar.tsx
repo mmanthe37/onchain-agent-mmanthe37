@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
+import { notoSansThai } from '../constants';
 import { translations } from '../translations';
 import type { Language } from '../types';
 import LanguageSelector from './LanguageSelector';
-import { notoSansThai } from '../constants';
 
 type NavbarProps = {
   setIsMobileMenuOpen: (isOpen: boolean) => void;

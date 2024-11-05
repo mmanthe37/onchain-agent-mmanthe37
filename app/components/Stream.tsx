@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { notoSansThai } from '../constants';
 import { translations } from '../translations';
 import type { Language, StreamEntry } from '../types';
