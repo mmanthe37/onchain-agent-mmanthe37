@@ -1,69 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 
-import { translations } from "../translations";
 import Navbar from "./Navbar";
-import {
-  ActionEntry,
-  AnimatedData,
-  Language,
-  StreamEntry,
-  ThoughtEntry,
-} from "../types";
+import { ActionEntry, AnimatedData, Language, StreamEntry } from "../types";
 import Stream from "./Stream";
 import ChatInput from "./ChatInput";
 import Footer from "./Footer";
 import AgentProfile from "./AgentProfile";
 import AgentStats from "./AgentStats";
-
-const generateRandomThought = (currentLanguage: Language): ThoughtEntry => {
-  const thoughts = [
-    translations[currentLanguage].thoughts.analyzing,
-    translations[currentLanguage].thoughts.processing,
-    translations[currentLanguage].thoughts.optimizing,
-    translations[currentLanguage].thoughts.generating,
-    translations[currentLanguage].thoughts.evaluating,
-    translations[currentLanguage].thoughts.simulating,
-  ];
-  return {
-    timestamp: new Date(),
-    content: thoughts[Math.floor(Math.random() * thoughts.length)],
-  };
-};
-
-const generateRandomAction = (currentLanguage: Language): ActionEntry => {
-  const actions = [
-    {
-      type: "create_wallet" as const,
-      content: `${translations[currentLanguage].actions.createWallet} 0x453b...3432`,
-    },
-    {
-      type: "request_faucet_funds" as const,
-      content: translations[currentLanguage].actions.requestFunds,
-    },
-    {
-      type: "get_balance" as const,
-      content: `0x4534...d342${translations[currentLanguage].actions.getBalance} 1003.45 USDC`,
-    },
-    {
-      type: "transfer_token" as const,
-      content: `${translations[currentLanguage].actions.transferToken} 100 USDC ${translations[currentLanguage].actions.to} 0x1234...5678`,
-    },
-    {
-      type: "transfer_nft" as const,
-      content: `${translations[currentLanguage].actions.transferNft} #1234 ${translations[currentLanguage].actions.to} 0x5678...9012`,
-    },
-    {
-      type: "swap_token" as const,
-      content: `${translations[currentLanguage].actions.swapToken} 10 ETH ${translations[currentLanguage].actions.to} 15000 USDC`,
-    },
-  ];
-  const randomAction = actions[Math.floor(Math.random() * actions.length)];
-  return {
-    timestamp: new Date(),
-    type: randomAction.type,
-    content: randomAction.content,
-  };
-};
+import { generateRandomThought, generateRandomAction } from "../utils";
 
 export default function Agent() {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
