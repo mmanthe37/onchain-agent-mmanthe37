@@ -1,44 +1,62 @@
-import { notoSansThai } from "../constants";
+import { AGENT_WALLET_ADDRESS, notoSansThai } from "../constants";
 import { translations } from "../translations";
-import { AnimatedData, Language } from "../types";
+import { Language } from "../types";
+import { useBalance } from "wagmi";
 
 type AgentStats = {
   currentLanguage: Language;
-  animatedData: AnimatedData;
-  walletBalance: number;
 };
+
+const dummyStats = {
+  earned: 10000,
+  spent: 4000,
+  nftsOwned: 3,
+  tokensOwned: 0,
+  transactions: 0,
+  thoughts: 900,
+}
 
 export default function AgentStats({
   currentLanguage,
-  animatedData,
-  walletBalance,
 }: AgentStats) {
+  const { data } = useBalance({ address: AGENT_WALLET_ADDRESS });
   return (
     <div className="mb-4 mr-2 bg-black border border-[#5788FA]/50 rounded-sm">
       <div className="flex flex-col items-start p-4">
         <span className="text-2xl font-bold text-[#5788FA]">
-          ${walletBalance.toFixed(2)}
+          {`${parseFloat(data?.formatted || "").toFixed(6)} ETH`}
         </span>
+        {/* TODO: update with actual data */}
         <ul className="space-y-1 pt-4">
-          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+          <li
+            className={currentLanguage === "th" ? notoSansThai.className : ""}
+          >
             {translations[currentLanguage].profile.stats.earned}: $
-            {animatedData.earned.toFixed(2)}
+            {dummyStats.earned.toFixed(2)}
           </li>
-          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+          <li
+            className={currentLanguage === "th" ? notoSansThai.className : ""}
+          >
             {translations[currentLanguage].profile.stats.spent}: $
-            {animatedData.spent.toFixed(2)}
+            {dummyStats.spent.toFixed(2)}
           </li>
-          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+          <li
+            className={currentLanguage === "th" ? notoSansThai.className : ""}
+          >
             {translations[currentLanguage].profile.stats.nfts}:{" "}
-            {animatedData.nftsOwned}
+            {dummyStats.nftsOwned}
           </li>
-          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+          <li
+            className={currentLanguage === "th" ? notoSansThai.className : ""}
+          >
             {translations[currentLanguage].profile.stats.tokens}:{" "}
-            {animatedData.tokensOwned}
+            {dummyStats.tokensOwned}
           </li>
-          <li className={currentLanguage === "th" ? notoSansThai.className : ""}>
+          <li
+            className={currentLanguage === "th" ? notoSansThai.className : ""}
+          >
             {translations[currentLanguage].profile.stats.transactions}:{" "}
-            {animatedData.transactions}
+            {dummyStats.transactions}
           </li>
         </ul>
       </div>

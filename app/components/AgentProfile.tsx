@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Language } from "../types";
-import { AGENT_WALLET_ADDRESS, notoSansThai } from "../constants";
+import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from "../constants";
 import { translations } from "../translations";
-
-const agentName = "Based Agent";
 
 type AgentProfileProps = {
   currentLanguage: Language;
@@ -83,7 +81,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </svg>
 
           <div className="flex flex-col justify-center space-y-2">
-            <h2 className="text-xl font-bold text-[#5788FA]">{agentName}</h2>
+            <h2 className="text-xl font-bold text-[#5788FA]">{AGENT_NAME}</h2>
             <div className="relative inline-flex items-center group">
               <button
                 onClick={copyToClipboard}

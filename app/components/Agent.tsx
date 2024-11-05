@@ -1,13 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 import Navbar from "./Navbar";
-import {
-  ActionEntry,
-  AgentMessage,
-  AnimatedData,
-  Language,
-  StreamEntry,
-} from "../types";
+import { ActionEntry, AgentMessage, Language, StreamEntry } from "../types";
 import Stream from "./Stream";
 import ChatInput from "./ChatInput";
 import Footer from "./Footer";
@@ -18,15 +12,6 @@ import useChat from "../hooks/useChat";
 export default function Agent() {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const [userInput, setUserInput] = useState("");
-  const [animatedData, setAnimatedData] = useState<AnimatedData>({
-    earned: 10000,
-    spent: 4000,
-    nftsOwned: 3,
-    tokensOwned: 0,
-    transactions: 0,
-    thoughts: 900,
-  });
-  const [walletBalance, setWalletBalance] = useState(5000); // Initial wallet balance
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -54,7 +39,7 @@ export default function Agent() {
       if (!isLoading && !isChatMode) {
         postChat("same a one liner that is inspiring");
       }
-    }, 1000);
+    }, 1500);
 
     return () => {
       clearInterval(streamInterval);
@@ -141,11 +126,7 @@ export default function Agent() {
         `}
         >
           <AgentProfile currentLanguage={currentLanguage} />
-          <AgentStats
-            currentLanguage={currentLanguage}
-            animatedData={animatedData}
-            walletBalance={walletBalance}
-          />
+          <AgentStats currentLanguage={currentLanguage} />
         </div>
 
         <div className="flex-grow flex flex-col w-full lg:w-2/3">
