@@ -14,12 +14,13 @@ const dummyStats = {
   tokensOwned: 0,
   transactions: 0,
   thoughts: 900,
-}
+};
 
-export default function AgentStats({
-  currentLanguage,
-}: AgentStats) {
-  const { data } = useBalance({ address: AGENT_WALLET_ADDRESS });
+export default function AgentStats({ currentLanguage }: AgentStats) {
+  const { data } = useBalance({
+    address: AGENT_WALLET_ADDRESS,
+    query: { refetchInterval: 5000 },
+  });
   return (
     <div className="mb-4 mr-2 bg-black border border-[#5788FA]/50 rounded-sm">
       <div className="flex flex-col items-start p-4">
