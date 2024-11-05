@@ -9,7 +9,10 @@
     "build": "next build",
     "start": "next start",
     "format": "biome format --write .",
-    "lint": "biome lint --write ."
+    "lint": "biome lint --write .",
+    "ci:check": "biome ci --formatter-enabled=false --linter-enabled=false",
+    "ci:format": "biome ci --linter-enabled=false --organize-imports-enabled=false",
+    "ci:lint": "biome ci --formatter-enabled=false --organize-imports-enabled=false"
   },
   "dependencies": {
     "@coinbase/onchainkit": "latest",
