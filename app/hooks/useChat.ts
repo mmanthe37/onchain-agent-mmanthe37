@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { AgentMessage } from "../types";
+import { useState, useCallback } from 'react';
+import { AgentMessage } from '../types';
 
 type UseChatResponse = {
   messages?: AgentMessage[];
@@ -20,10 +20,10 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
       setIsLoading(true);
 
       try {
-        const response = await fetch("http://localhost:3000/api/chat", {
-          method: "POST",
+        const response = await fetch('http://localhost:3000/api/chat', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ input }),
         });
@@ -35,12 +35,12 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
         const text = await response.text();
         const parsedMessages = text
           .trim()
-          .split("\n")
+          .split('\n')
           .map((line) => {
             try {
               return JSON.parse(line);
             } catch (error) {
-              console.error("Failed to parse line as JSON:", line, error);
+              console.error('Failed to parse line as JSON:', line, error);
               return null;
             }
           })
@@ -49,13 +49,13 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
         onSuccess(parsedMessages);
         return { messages: parsedMessages, error: null };
       } catch (error) {
-        console.error("Error posting chat:", error);
+        console.error('Error posting chat:', error);
         return { messages: [], error: error as Error };
       } finally {
         setIsLoading(false);
       }
     },
-    [onSuccess]
+    [onSuccess],
   );
 
   return { postChat, isLoading };

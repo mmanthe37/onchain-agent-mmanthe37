@@ -1,8 +1,8 @@
-import { ChangeEvent, useCallback } from "react";
-import { Language } from "../types";
-import { notoSansThai } from "../constants";
-import { translations } from "../translations";
-import SendSvg from "../svg/SendSvg";
+import { ChangeEvent, useCallback } from 'react';
+import { Language } from '../types';
+import { notoSansThai } from '../constants';
+import { translations } from '../translations';
+import SendSvg from '../svg/SendSvg';
 
 type PremadeChatInputProps = {
   text: string;
@@ -19,7 +19,7 @@ function PremadeChatInput({
     <button
       onClick={() => setUserInput(text)}
       className={`text-[#5788FA] whitespace-nowrap hover:text-[#3D7BFF] hover:bg-zinc-900 transition-colors border border-[#5788FA]/50 px-2 py-1 rounded-sm ${
-        currentLanguage === "th" ? notoSansThai.className : ""
+        currentLanguage === 'th' ? notoSansThai.className : ''
       }`}
     >
       {text}
@@ -47,7 +47,7 @@ export default function ChatInput({
     (e: ChangeEvent<HTMLTextAreaElement>) => {
       setUserInput(e.target.value);
     },
-    [setUserInput]
+    [setUserInput],
   );
 
   return (
@@ -61,7 +61,7 @@ export default function ChatInput({
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           className={`w-full h-24 lg:h-36 bg-black text-[#5788FA] p-4 pr-10 placeholder-[#5788FA] placeholder-opacity-50 ${
-            currentLanguage === "th" ? notoSansThai.className : ""
+            currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
           placeholder={translations[currentLanguage].chat.placeholder}
           rows={1}
@@ -89,8 +89,8 @@ export default function ChatInput({
             disabled={!/[a-zA-Z]/.test(userInput)}
             className={`p-1.5 rounded-sm transition-colors ${
               /[a-zA-Z]/.test(userInput)
-                ? "bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]"
-                : "bg-[#5788FA] text-zinc-950 opacity-50 cursor-not-allowed"
+                ? 'bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]'
+                : 'bg-[#5788FA] text-zinc-950 opacity-50 cursor-not-allowed'
             }`}
           >
             <SendSvg />

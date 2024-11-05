@@ -1,4 +1,4 @@
-export type Language = "en" | "th" | "zh";
+export type Language = 'en' | 'th' | 'zh';
 
 export type ThoughtEntry = {
   timestamp: Date;
@@ -9,13 +9,13 @@ export type ThoughtEntry = {
 export type ActionEntry = {
   timestamp: Date;
   type:
-    | "create_wallet"
-    | "request_faucet_funds"
-    | "get_balance"
-    | "swap_token"
-    | "transfer_token"
-    | "transfer_nft"
-    | "user";
+    | 'create_wallet'
+    | 'request_faucet_funds'
+    | 'get_balance'
+    | 'swap_token'
+    | 'transfer_token'
+    | 'transfer_nft'
+    | 'user';
   content: string;
 };
 

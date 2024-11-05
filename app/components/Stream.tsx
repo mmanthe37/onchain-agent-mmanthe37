@@ -1,9 +1,9 @@
-import { useRef, useEffect } from "react";
-import { notoSansThai } from "../constants";
-import { translations } from "../translations";
-import { Language, StreamEntry } from "../types";
-import { getActionIcon } from "../utils";
-import TimeDisplay from "./TimeDisplay";
+import { useRef, useEffect } from 'react';
+import { notoSansThai } from '../constants';
+import { translations } from '../translations';
+import { Language, StreamEntry } from '../types';
+import { getActionIcon } from '../utils';
+import TimeDisplay from './TimeDisplay';
 
 type StreamEntryItemProps = {
   entry: StreamEntry;
@@ -17,7 +17,7 @@ function StreamEntryItem({ entry, currentLanguage }: StreamEntryItemProps) {
         <TimeDisplay timestamp={entry.timestamp} />
         <div
           className={`flex items-center space-x-2 text-[#5788FA] ${
-            currentLanguage === "th" ? notoSansThai.className : ""
+            currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >
           {getActionIcon(entry.type)}
@@ -31,7 +31,7 @@ function StreamEntryItem({ entry, currentLanguage }: StreamEntryItemProps) {
       <TimeDisplay timestamp={entry.timestamp} />
       <div
         className={`text-gray-300 ${
-          currentLanguage === "th" ? notoSansThai.className : ""
+          currentLanguage === 'th' ? notoSansThai.className : ''
         }`}
       >
         {entry.content}
@@ -59,12 +59,12 @@ export default function Stream({
     // Scrolls to the bottom of the chat when messages change
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [streamEntries]);
-  
+
   return (
     <div className="flex-grow p-4 pb-20 overflow-y-auto">
       <p
         className={`text-zinc-500 ${
-          currentLanguage === "th" ? notoSansThai.className : ""
+          currentLanguage === 'th' ? notoSansThai.className : ''
         }`}
       >
         {translations[currentLanguage].stream.realTime}
@@ -82,7 +82,7 @@ export default function Stream({
         <div className="flex items-center mt-4 text-[#5788FA] opacity-70">
           <span
             className={`font-mono ${
-              currentLanguage === "th" ? notoSansThai.className : ""
+              currentLanguage === 'th' ? notoSansThai.className : ''
             }`}
           >
             {translations[currentLanguage].stream.thinking}

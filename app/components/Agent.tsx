@@ -1,29 +1,29 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
-import Navbar from "./Navbar";
-import { ActionEntry, AgentMessage, Language, StreamEntry } from "../types";
-import Stream from "./Stream";
-import ChatInput from "./ChatInput";
-import Footer from "./Footer";
-import AgentProfile from "./AgentProfile";
-import AgentStats from "./AgentStats";
-import useChat from "../hooks/useChat";
+import Navbar from './Navbar';
+import { ActionEntry, AgentMessage, Language, StreamEntry } from '../types';
+import Stream from './Stream';
+import ChatInput from './ChatInput';
+import Footer from './Footer';
+import AgentProfile from './AgentProfile';
+import AgentStats from './AgentStats';
+import useChat from '../hooks/useChat';
 
 export default function Agent() {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState('');
   const [isThinking, setIsThinking] = useState(true);
-  const [loadingDots, setLoadingDots] = useState("");
+  const [loadingDots, setLoadingDots] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
   const [isLiveDotVisible, setIsLiveDotVisible] = useState(true);
   const [isChatMode, setIsChatMode] = useState(false);
 
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
-    const message = messages.find((res) => res.event === "agent");
+    const message = messages.find((res) => res.event === 'agent');
     const streamEntry = {
       timestamp: new Date(),
-      content: message?.data || "",
+      content: message?.data || '',
     };
     setIsThinking(false);
     setStreamEntries((prev) => [...prev, streamEntry]);
@@ -38,7 +38,7 @@ export default function Agent() {
   useEffect(() => {
     const streamInterval = setInterval(() => {
       if (!isLoading && !isChatMode) {
-        postChat("same a one liner that is inspiring");
+        postChat('same a one liner that is inspiring');
       }
     }, 1500);
 
@@ -50,7 +50,7 @@ export default function Agent() {
   // enables dot animation for "agent is thinking..."
   useEffect(() => {
     const dotsInterval = setInterval(() => {
-      setLoadingDots((prev) => (prev.length >= 3 ? "" : prev + "."));
+      setLoadingDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
     }, 500);
 
     return () => clearInterval(dotsInterval);
@@ -72,11 +72,11 @@ export default function Agent() {
 
       // disable live stream
       setIsChatMode(true);
-      setUserInput("");
+      setUserInput('');
 
       const userMessage: ActionEntry = {
         timestamp: new Date(),
-        type: "user",
+        type: 'user',
         content: userInput.trim(),
       };
 
@@ -84,17 +84,17 @@ export default function Agent() {
 
       postChat(userInput);
     },
-    [postChat, userInput]
+    [postChat, userInput],
   );
 
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Enter" && !e.shiftKey) {
+      if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         handleSubmit(e);
       }
     },
-    [handleSubmit]
+    [handleSubmit],
   );
 
   const handleLanguageChange = useCallback((lang: Language) => {
@@ -115,7 +115,7 @@ export default function Agent() {
       <div className="flex flex-grow overflow-hidden relative">
         <div
           className={`
-          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
           fixed lg:relative
           w-full lg:w-1/3 

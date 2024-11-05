@@ -1,8 +1,8 @@
-import { useCallback } from "react";
-import { translations } from "../translations";
-import { Language } from "../types";
-import LanguageSelector from "./LanguageSelector";
-import { notoSansThai } from "../constants";
+import { useCallback } from 'react';
+import { translations } from '../translations';
+import { Language } from '../types';
+import LanguageSelector from './LanguageSelector';
+import { notoSansThai } from '../constants';
 
 type NavbarProps = {
   setIsMobileMenuOpen: (isOpen: boolean) => void;
@@ -35,14 +35,14 @@ export default function Navbar({
           transition-all duration-700 ease-in-out
           ${
             isLiveDotVisible
-              ? "bg-green-500 opacity-100"
-              : "bg-green-500 opacity-40"
+              ? 'bg-green-500 opacity-100'
+              : 'bg-green-500 opacity-40'
           }
         `}
         />
         <span
           className={`text-sm text-zinc-50 ${
-            currentLanguage === "th" ? notoSansThai.className : ""
+            currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >
           {translations[currentLanguage].header.liveOn}

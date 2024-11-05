@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Language } from "../types";
-import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from "../constants";
-import { translations } from "../translations";
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Language } from '../types';
+import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
+import { translations } from '../translations';
 
 type AgentProfileProps = {
   currentLanguage: Language;
@@ -20,7 +20,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
         setTimeout(() => setShowToast(false), 2000); // Hide toast after 2 seconds
       })
       .catch((err) => {
-        console.error("Failed to copy wallet address: ", err);
+        console.error('Failed to copy wallet address: ', err);
       });
   }, []);
 
@@ -37,24 +37,24 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
 
         const normalizedX = Math.min(
           Math.max((dx / maxDistance) * 30 + 50, 20),
-          80
+          80,
         );
         const normalizedY = Math.min(
           Math.max((dy / maxDistance) * 30 + 50, 20),
-          80
+          80,
         );
 
         setEyePosition({ x: normalizedX, y: normalizedY });
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const formattedAddress = useMemo(() => {
     return `${AGENT_WALLET_ADDRESS.slice(0, 6)}...${AGENT_WALLET_ADDRESS.slice(
-      -4
+      -4,
     )}`;
   }, []);
 
@@ -100,7 +100,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
 
         <p
           className={`text-base text-[#5788FA] ${
-            currentLanguage === "th" ? notoSansThai.className : ""
+            currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >
           {translations[currentLanguage].profile.bio}

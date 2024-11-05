@@ -39,10 +39,12 @@ export function Providers(props: {
         <OnchainKitProvider
           apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_CDP_KEY}
           chain={baseSepolia}
-          config={{ appearance: { 
-            mode: 'auto',
-            theme: 'base',
-           } }}
+          config={{
+            appearance: {
+              mode: 'auto',
+              theme: 'base',
+            },
+          }}
         >
           {props.children}
         </OnchainKitProvider>
