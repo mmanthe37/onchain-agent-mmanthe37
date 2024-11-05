@@ -53,9 +53,9 @@ export default function ChatInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="fixed bottom-0 right-0 w-full lg:w-2/3 border-t border-[#5788FA]/50 bg-black"
+      className="flex flex-col w-full border-t border-[#5788FA]/50 bg-black pb-10 p-2 lg:pb-2"
     >
-      <div className="relative">
+      <div className="flex flex-col">
         <textarea
           value={userInput}
           onChange={handleInputChange}
@@ -66,7 +66,7 @@ export default function ChatInput({
           placeholder={translations[currentLanguage].chat.placeholder}
           rows={1}
         />
-        <div className="px-2 absolute bottom-0.5 right-0 flex items-center justify-between w-full -translate-y-1/2">
+        <div className="px-2 flex items-center justify-between w-full pt-4">
           <div className="flex space-x-2 text-xs lg:text-sm ml-2 overflow-x-auto">
             <PremadeChatInput
               setUserInput={setUserInput}

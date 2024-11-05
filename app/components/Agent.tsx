@@ -1,13 +1,19 @@
 import { useState, useEffect, useCallback } from "react";
 
 import Navbar from "./Navbar";
-import { ActionEntry, AnimatedData, Language, StreamEntry } from "../types";
+import {
+  ActionEntry,
+  AgentMessage,
+  AnimatedData,
+  Language,
+  StreamEntry,
+} from "../types";
 import Stream from "./Stream";
 import ChatInput from "./ChatInput";
 import Footer from "./Footer";
 import AgentProfile from "./AgentProfile";
 import AgentStats from "./AgentStats";
-import { generateRandomThought, generateRandomAction } from "../utils";
+import useChat from "../hooks/useChat";
 
 export default function Agent() {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
@@ -26,45 +32,34 @@ export default function Agent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
   const [isLiveDotVisible, setIsLiveDotVisible] = useState(true);
+  const [isChatMode, setIsChatMode] = useState(false);
+
+  const handleSuccess = useCallback((messages: AgentMessage[]) => {
+    const message = messages.find((res) => res.event === "agent");
+    const streamEntry = {
+      timestamp: new Date(),
+      content: message?.data || "",
+    };
+    setIsThinking(false);
+    setStreamEntries((prev) => [...prev, streamEntry]);
+    setTimeout(() => {
+      setIsThinking(true);
+    }, 800);
+  }, []);
+
+  const { postChat, isLoading } = useChat({ onSuccess: handleSuccess });
 
   useEffect(() => {
     const streamInterval = setInterval(() => {
-      setIsThinking(true);
-      setTimeout(() => {
-        const newEntry =
-          Math.random() > 0.3
-            ? generateRandomThought(currentLanguage)
-            : generateRandomAction(currentLanguage);
-        setStreamEntries((prevEntries) =>
-          [...prevEntries, newEntry].slice(-10)
-        );
-        setAnimatedData((prev) => ({
-          ...prev,
-          thoughts: prev.thoughts + (newEntry.type === undefined ? 1 : 0),
-          transactions:
-            prev.transactions + (newEntry.type !== undefined ? 1 : 0),
-        }));
-        setIsThinking(false);
-      }, 1500);
-    }, 3000);
-
-    const dataInterval = setInterval(() => {
-      setAnimatedData((prev) => ({
-        earned: prev.earned + Math.random() * 10,
-        spent: prev.spent + Math.random() * 5,
-        nftsOwned: prev.nftsOwned + (Math.random() > 0.95 ? 1 : 0),
-        tokensOwned: prev.tokensOwned + (Math.random() > 0.98 ? 1 : 0),
-        transactions: prev.transactions,
-        thoughts: prev.thoughts,
-      }));
-      setWalletBalance((prev) => prev + (Math.random() - 0.5) * 100);
-    }, 2000);
+      if (!isLoading && !isChatMode) {
+        postChat("same a one liner that is inspiring");
+      }
+    }, 1000);
 
     return () => {
       clearInterval(streamInterval);
-      clearInterval(dataInterval);
     };
-  }, [currentLanguage]);
+  }, [isLoading, postChat, isChatMode]);
 
   useEffect(() => {
     const dotsInterval = setInterval(() => {
@@ -83,9 +78,12 @@ export default function Agent() {
   }, []);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
+    async (e: React.FormEvent) => {
       e.preventDefault();
       if (!userInput.trim()) return;
+
+      setIsChatMode(true);
+      setUserInput("");
 
       const userMessage: ActionEntry = {
         timestamp: new Date(),
@@ -93,10 +91,11 @@ export default function Agent() {
         content: userInput.trim(),
       };
 
-      setStreamEntries((prev) => [...prev, userMessage].slice(-10));
-      setUserInput("");
+      setStreamEntries((prev) => [...prev, userMessage]);
+
+      postChat(userInput);
     },
-    [userInput]
+    [postChat, userInput]
   );
 
   const handleKeyPress = useCallback(
@@ -153,7 +152,7 @@ export default function Agent() {
           <Stream
             currentLanguage={currentLanguage}
             streamEntries={streamEntries}
-            isThinking={isThinking}
+            isThinking={isThinking && !isChatMode}
             loadingDots={loadingDots}
           />
           <ChatInput
