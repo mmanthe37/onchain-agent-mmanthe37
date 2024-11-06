@@ -35,9 +35,9 @@ export default function AgentAssets() {
   }, []);
 
   return (
-    <div className="mr-2 mb-4 rounded-sm  bg-black p-4">
+    <div className="mr-2 mb-4 rounded-sm bg-black p-4">
       <div className="flex flex-col items-start gap-4">
-        <div className="gap-6 flex border-b border-zinc-700 grow w-full">
+        <div className="flex w-full grow gap-6 border-zinc-700 border-b">
           <button
             type="button"
             onClick={handleTabChange('tokens')}

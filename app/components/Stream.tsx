@@ -85,11 +85,11 @@ export default function Stream({ currentLanguage }: StreamProps) {
   });
 
   return (
-    <div className="flex w-full flex-grow flex-col w-1/2 border-[#5788FA]/50 md:border-r">
-      <div className="flex items-center p-2 border-b border-[#5788FA]/50">
+    <div className="flex w-1/2 w-full flex-grow flex-col border-[#5788FA]/50 md:border-r">
+      <div className="flex items-center border-[#5788FA]/50 border-b p-2">
         Total transactions: {transactionCount}
       </div>
-      <div className="flex-grow overflow-y-auto p-4 pb-20 max-w-full">
+      <div className="max-w-full flex-grow overflow-y-auto p-4 pb-20">
         <p
           className={`text-zinc-500 ${
             currentLanguage === 'th' ? notoSansThai.className : ''
@@ -109,7 +109,7 @@ export default function Stream({ currentLanguage }: StreamProps) {
         {isThinking && (
           <div className="mt-4 flex items-center text-[#5788FA] opacity-70">
             <span
-              className={`font-mono max-w-full ${
+              className={`max-w-full font-mono ${
                 currentLanguage === 'th' ? notoSansThai.className : ''
               }`}
             >

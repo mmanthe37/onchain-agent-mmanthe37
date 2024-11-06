@@ -8,7 +8,7 @@ export default function AgentBalance() {
   });
 
   return (
-    <div className="rounded-sm bg-black border-t p-4 pt-8  border-zinc-700">
+    <div className="rounded-sm border-zinc-700 border-t bg-black p-4 pt-8">
       <div className="flex flex-col items-start ">
         <span className="font-bold text-3xl text-[#5788FA]">
           {`${Number.parseFloat(data?.formatted || '').toFixed(6)} ETH`}

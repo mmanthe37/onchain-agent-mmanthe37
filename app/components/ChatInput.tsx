@@ -19,7 +19,7 @@ function PremadeChatInput({
     <button
       type="submit"
       onClick={() => setUserInput(text)}
-      className={`w-full whitespace-nowrap text-start rounded-sm border border-[#5788FA]/50 px-2 py-1 text-[#5788FA] transition-colors hover:bg-zinc-900 hover:text-[#3D7BFF] lg:w-auto ${
+      className={`w-full whitespace-nowrap rounded-sm border border-[#5788FA]/50 px-2 py-1 text-start text-[#5788FA] transition-colors hover:bg-zinc-900 hover:text-[#3D7BFF] lg:w-auto ${
         currentLanguage === 'th' ? notoSansThai.className : ''
       }`}
     >
@@ -56,7 +56,7 @@ export default function ChatInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-4 pb-10 lg:pb-2 mt-auto md:mt-0"
+      className="mt-auto flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-4 pb-10 md:mt-0 lg:pb-2"
     >
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
@@ -83,7 +83,7 @@ export default function ChatInput({
           </button>
         </div>
         <div className="flex w-full items-center justify-between gap-4 py-2">
-          <div className="flex grow flex-col gap-2 overflow-x-auto text-xs lg:flex-row lg:text-sm flex-wrap">
+          <div className="flex grow flex-col flex-wrap gap-2 overflow-x-auto text-xs lg:flex-row lg:text-sm">
             <PremadeChatInput
               setUserInput={setUserInput}
               currentLanguage={currentLanguage}

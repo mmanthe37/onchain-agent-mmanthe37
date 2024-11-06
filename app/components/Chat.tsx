@@ -79,8 +79,8 @@ export default function Chat({ className, currentLanguage }: ChatProps) {
   }, [streamEntries]);
 
   return (
-    <div className={cn('flex flex-col w-1/2 grow md:flex h-full', className)}>
-      <div className="flex flex-col overflow-y-auto p-4 pb-20 grow">
+    <div className={cn('flex h-full w-1/2 grow flex-col md:flex', className)}>
+      <div className="flex grow flex-col overflow-y-auto p-4 pb-20">
         <p
           className={`text-zinc-500 ${
             currentLanguage === 'th' ? notoSansThai.className : ''
