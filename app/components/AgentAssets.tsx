@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import getNfts from '../hooks/useGetNfts';
 
 // TODO: add assets
 export default function AgentAssets() {
@@ -28,10 +27,6 @@ export default function AgentAssets() {
 
   const handleTabChange = useCallback((tab: string) => {
     return () => setTab(tab);
-  }, []);
-
-  useEffect(() => {
-    getNfts();
   }, []);
 
   return (
