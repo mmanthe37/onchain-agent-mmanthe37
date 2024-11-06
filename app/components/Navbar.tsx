@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
-import { notoSansThai } from '../constants';
+import { AGENT_NAME, notoSansThai } from '../constants';
 import { translations } from '../translations';
 import type { Language } from '../types';
 import LanguageSelector from './LanguageSelector';
+import WalletSvg from '../svg/WalletSvg';
 
 type NavbarProps = {
   setIsMobileMenuOpen: (isOpen: boolean) => void;
   isMobileMenuOpen: boolean;
+  setIsMobileChatOpen: (isOpen: boolean) => void;
+  isMobileChatOpen: boolean;
   setCurrentLanguage: (language: Language) => void;
   currentLanguage: Language;
 };
@@ -14,6 +17,8 @@ type NavbarProps = {
 export default function Navbar({
   setIsMobileMenuOpen,
   isMobileMenuOpen,
+  isMobileChatOpen,
+  setIsMobileChatOpen,
   setCurrentLanguage,
   currentLanguage,
 }: NavbarProps) {
@@ -28,36 +33,61 @@ export default function Navbar({
     return () => clearInterval(dotInterval);
   }, []);
 
-  const handleClick = useCallback(() => {
+  const handleMobileProfileClick = useCallback(() => {
+    if (!isMobileMenuOpen && isMobileChatOpen) {
+      setIsMobileChatOpen(false);
+    }
     setIsMobileMenuOpen(!isMobileMenuOpen);
-  }, [isMobileMenuOpen, setIsMobileMenuOpen]);
+  }, [isMobileMenuOpen, isMobileChatOpen, setIsMobileMenuOpen]);
+
+  const handleMobileChatClick = useCallback(() => {
+    if (!isMobileChatOpen && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+    setIsMobileChatOpen(!isMobileChatOpen);
+  }, [isMobileMenuOpen, isMobileChatOpen, setIsMobileChatOpen]);
 
   return (
-    <div className="flex items-center justify-between border-[#5788FA]/50 border-b p-2">
-      <div className="flex items-center space-x-2">
-        <button className="mr-2 lg:hidden" onClick={handleClick} type="button">
-          ☰
+    <div className="z-10 flex flex-col items-center justify-between border-[#5788FA]/50 border-b">
+      <div className="md:hidden flex items-center justify-between border-[#5788FA]/50 border-b p-2 w-full">
+        <button onClick={handleMobileProfileClick}>
+          <WalletSvg />
         </button>
-        <div
-          className={`h-2 w-2 rounded-full transition-all duration-700 ease-in-out ${
-            isLiveDotVisible
-              ? 'bg-green-500 opacity-100'
-              : 'bg-green-500 opacity-40'
-          }
-        `}
-        />
-        <span
-          className={`text-sm text-zinc-50 ${
-            currentLanguage === 'th' ? notoSansThai.className : ''
-          }`}
-        >
-          {translations[currentLanguage].header.liveOn}
-        </span>
+        <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
+        <button onClick={handleMobileChatClick}>
+          <WalletSvg />
+        </button>
       </div>
-      <LanguageSelector
-        currentLanguage={currentLanguage}
-        onLanguageChange={setCurrentLanguage}
-      />
+      <div className="flex justify-between w-full p-2">
+        <div className="flex items-center space-x-2">
+          <button
+            className="mr-2 hidden md:flex lg:hidden"
+            onClick={handleMobileProfileClick}
+            type="button"
+          >
+            ☰
+          </button>
+          <div
+            className={`h-2 w-2 rounded-full transition-all duration-700 ease-in-out ${
+              isLiveDotVisible
+                ? 'bg-green-500 opacity-100'
+                : 'bg-green-500 opacity-40'
+            }
+        `}
+          />
+          <span
+            className={`text-sm text-zinc-50 ${
+              currentLanguage === 'th' ? notoSansThai.className : ''
+            }`}
+          >
+            {translations[currentLanguage].header.liveOn}
+          </span>
+        </div>
+        <LanguageSelector
+          currentLanguage={currentLanguage}
+          onLanguageChange={setCurrentLanguage}
+        />
+      </div>
     </div>
   );
 }

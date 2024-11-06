@@ -11,7 +11,7 @@ export const AGENT_WALLET_ADDRESS =
 export const AGENT_NAME = 'Based Agent';
 
 export const DEFAULT_PROMPT =
-  'Be creative and same something interesting about the blockchain and your abilities';
+  'Be creative and same something interesting about the blockchain and your abilities in one sentence';
 
 // export const DEFAULT_PROMPT =
 //   'Be creative and do something interesting on the blockchain. Choose an action or set of actions and execute it in a way that highlights your abilities.';

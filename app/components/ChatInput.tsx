@@ -19,7 +19,7 @@ function PremadeChatInput({
     <button
       type="submit"
       onClick={() => setUserInput(text)}
-      className={`w-full whitespace-nowrap rounded-sm border border-[#5788FA]/50 px-2 py-1 text-[#5788FA] transition-colors hover:bg-zinc-900 hover:text-[#3D7BFF] lg:w-auto lg:grow ${
+      className={`w-full whitespace-nowrap text-start rounded-sm border border-[#5788FA]/50 px-2 py-1 text-[#5788FA] transition-colors hover:bg-zinc-900 hover:text-[#3D7BFF] lg:w-auto ${
         currentLanguage === 'th' ? notoSansThai.className : ''
       }`}
     >
@@ -54,7 +54,7 @@ export default function ChatInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-4 pb-10 lg:pb-2"
+      className="flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-4 pb-10 lg:pb-2 mt-auto md:mt-0"
     >
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
@@ -62,7 +62,7 @@ export default function ChatInput({
             value={userInput}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
-            className={`h-24 w-full bg-black p-2 pr-10 text-[#5788FA] placeholder-[#5788FA] placeholder-opacity-50 lg:h-36 ${
+            className={`h-24 w-full bg-black p-2 pr-10 text-gray-300 placeholder-[#5788FA] placeholder-opacity-50 lg:h-36 ${
               currentLanguage === 'th' ? notoSansThai.className : ''
             }`}
             placeholder={translations[currentLanguage].chat.placeholder}
@@ -81,16 +81,11 @@ export default function ChatInput({
           </button>
         </div>
         <div className="flex w-full items-center justify-between gap-4 py-2">
-          <div className="flex grow flex-col gap-2 overflow-x-auto text-xs lg:flex-row lg:text-sm">
+          <div className="flex grow flex-col gap-2 overflow-x-auto text-xs lg:flex-row lg:text-sm flex-wrap">
             <PremadeChatInput
               setUserInput={setUserInput}
               currentLanguage={currentLanguage}
-              text={translations[currentLanguage].chat.suggestions.send}
-            />
-            <PremadeChatInput
-              setUserInput={setUserInput}
-              currentLanguage={currentLanguage}
-              text={translations[currentLanguage].chat.suggestions.create}
+              text="Create a new token with all the specifications"
             />
             <PremadeChatInput
               setUserInput={setUserInput}

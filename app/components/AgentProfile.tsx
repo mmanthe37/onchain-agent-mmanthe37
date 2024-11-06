@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
-import { translations } from '../translations';
 import type { Language } from '../types';
 
 type AgentProfileProps = {
@@ -59,7 +58,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
   }, []);
 
   return (
-    <div className="mb-4">
+    <div className="p-4">
       <div className="flex flex-col space-y-4 py-2">
         <div className="flex items-center space-x-5">
           <svg
@@ -104,7 +103,10 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
             currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >
-          {translations[currentLanguage].profile.bio}
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
         </p>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { notoSansThai } from '../constants';
 import type { Language, StreamEntry } from '../types';
-import { getActionIcon } from '../utils';
 import TimeDisplay from './TimeDisplay';
 
 type StreamItemProps = {
@@ -14,9 +13,9 @@ export default function StreamItem({
   currentLanguage,
 }: StreamItemProps) {
   const className = useMemo(() => {
-    let baseClass = 'flex items-center space-x-2';
+    let baseClass = 'flex items-center space-x-2 max-w-full';
 
-    if (entry?.type && ['tools', 'user'].includes(entry?.type)) {
+    if (entry?.type !== 'user') {
       baseClass += ' text-[#5788FA]';
     } else {
       baseClass += ' text-gray-300';
@@ -29,16 +28,11 @@ export default function StreamItem({
     return baseClass;
   }, [currentLanguage, entry?.type]);
 
-  const icon = useMemo(() => {
-    return getActionIcon(entry.type);
-  }, [entry]);
-
   return (
     <div className="mb-2">
       <TimeDisplay timestamp={entry.timestamp} />
       <div className={className}>
-        {icon && <div className="h-4 w-4">{icon}</div>}
-        <span>{entry.content}</span>
+        <span className="max-w-full text-wrap break-all"> {entry.content}</span>
       </div>
     </div>
   );

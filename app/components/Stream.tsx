@@ -1,21 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { DEFAULT_PROMPT, notoSansThai } from '../constants';
+import {
+  AGENT_WALLET_ADDRESS,
+  DEFAULT_PROMPT,
+  notoSansThai,
+} from '../constants';
 import useChat from '../hooks/useChat';
 import { translations } from '../translations';
 import type { AgentMessage, Language, StreamEntry } from '../types';
-import ChatInput from './ChatInput';
 import StreamItem from './StreamItem';
+import { useTransactionCount } from 'wagmi';
 
 type StreamProps = {
   currentLanguage: Language;
 };
 
-export default function Stream({ currentLanguage }: StreamProps) {
+export default function Stream({
+  currentLanguage,
+}: StreamProps) {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
-  const [userInput, setUserInput] = useState('');
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
-  const [isChatMode, setIsChatMode] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // TODO: revisit this logic
@@ -47,7 +51,7 @@ export default function Stream({ currentLanguage }: StreamProps) {
   // enables live stream of agent thoughts
   useEffect(() => {
     const streamInterval = setInterval(() => {
-      if (!isLoading && !isChatMode) {
+      if (!isLoading) {
         postChat(DEFAULT_PROMPT);
       }
     }, 1500);
@@ -55,7 +59,7 @@ export default function Stream({ currentLanguage }: StreamProps) {
     return () => {
       clearInterval(streamInterval);
     };
-  }, [isLoading, postChat, isChatMode]);
+  }, [isLoading, postChat]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Dependency is required
   useEffect(() => {
@@ -77,43 +81,18 @@ export default function Stream({ currentLanguage }: StreamProps) {
     return () => clearInterval(dotsInterval);
   }, []);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!userInput.trim()) {
-        return;
-      }
 
-      // disable live stream
-      setIsChatMode(true);
-      setUserInput('');
-
-      const userMessage: StreamEntry = {
-        timestamp: new Date(),
-        type: 'user',
-        content: userInput.trim(),
-      };
-
-      setStreamEntries((prev) => [...prev, userMessage]);
-
-      postChat(userInput);
-    },
-    [postChat, userInput],
-  );
-
-  const handleKeyPress = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        handleSubmit(e);
-      }
-    },
-    [handleSubmit],
-  );
+  const { data: transactionCount } = useTransactionCount({
+    address: AGENT_WALLET_ADDRESS,
+    query: { refetchInterval: 5000 },
+  });
 
   return (
-    <div className="flex w-full flex-grow flex-col lg:w-2/3">
-      <div className="flex-grow overflow-y-auto p-4 pb-20">
+    <div className="flex w-full flex-grow flex-col w-1/2 border-[#5788FA]/50 md:border-r">
+      <div className="flex items-center p-2 border-b border-[#5788FA]/50">
+        Total transactions: {transactionCount}
+      </div>
+      <div className="flex-grow overflow-y-auto p-4 pb-20 max-w-full">
         <p
           className={`text-zinc-500 ${
             currentLanguage === 'th' ? notoSansThai.className : ''
@@ -130,10 +109,10 @@ export default function Stream({ currentLanguage }: StreamProps) {
             />
           ))}
         </div>
-        {isThinking && !isChatMode && (
+        {isThinking && (
           <div className="mt-4 flex items-center text-[#5788FA] opacity-70">
             <span
-              className={`font-mono ${
+              className={`font-mono max-w-full ${
                 currentLanguage === 'th' ? notoSansThai.className : ''
               }`}
             >
@@ -144,13 +123,6 @@ export default function Stream({ currentLanguage }: StreamProps) {
         )}
         <div className="mt-3" ref={bottomRef} />
       </div>
-      <ChatInput
-        currentLanguage={currentLanguage}
-        userInput={userInput}
-        handleKeyPress={handleKeyPress}
-        handleSubmit={handleSubmit}
-        setUserInput={setUserInput}
-      />
     </div>
   );
 }
