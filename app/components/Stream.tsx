@@ -14,9 +14,7 @@ type StreamProps = {
   currentLanguage: Language;
 };
 
-export default function Stream({
-  currentLanguage,
-}: StreamProps) {
+export default function Stream({ currentLanguage }: StreamProps) {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
@@ -80,7 +78,6 @@ export default function Stream({
 
     return () => clearInterval(dotsInterval);
   }, []);
-
 
   const { data: transactionCount } = useTransactionCount({
     address: AGENT_WALLET_ADDRESS,

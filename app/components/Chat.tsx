@@ -15,7 +15,7 @@ type ChatProps = {
 export default function Chat({ className, currentLanguage }: ChatProps) {
   const [userInput, setUserInput] = useState('');
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
-  
+
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // TODO: revisit this logic
