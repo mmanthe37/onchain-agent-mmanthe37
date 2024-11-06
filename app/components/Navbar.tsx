@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AGENT_NAME, notoSansThai } from '../constants';
+import WalletSvg from '../svg/WalletSvg';
 import { translations } from '../translations';
 import type { Language } from '../types';
 import LanguageSelector from './LanguageSelector';
-import WalletSvg from '../svg/WalletSvg';
 
 type NavbarProps = {
   setIsMobileMenuOpen: (isOpen: boolean) => void;

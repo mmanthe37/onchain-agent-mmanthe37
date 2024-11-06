@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTransactionCount } from 'wagmi';
 import {
   AGENT_WALLET_ADDRESS,
   DEFAULT_PROMPT,
@@ -8,7 +9,6 @@ import useChat from '../hooks/useChat';
 import { translations } from '../translations';
 import type { AgentMessage, Language, StreamEntry } from '../types';
 import StreamItem from './StreamItem';
-import { useTransactionCount } from 'wagmi';
 
 type StreamProps = {
   currentLanguage: Language;

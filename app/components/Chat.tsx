@@ -1,10 +1,10 @@
+import { cn } from '@coinbase/onchainkit/theme';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { notoSansThai } from '../constants';
+import useChat from '../hooks/useChat';
 import type { AgentMessage, Language, StreamEntry } from '../types';
 import ChatInput from './ChatInput';
-import useChat from '../hooks/useChat';
 import StreamItem from './StreamItem';
-import { notoSansThai } from '../constants';
-import { cn } from '@coinbase/onchainkit/theme';
 
 type ChatProps = {
   currentLanguage: Language;
