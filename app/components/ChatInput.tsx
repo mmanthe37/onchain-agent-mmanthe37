@@ -34,6 +34,7 @@ export type ChatInputProps = {
   setUserInput: (input: string) => void;
   handleKeyPress: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   currentLanguage: Language;
+  disabled?: boolean;
 };
 
 export default function ChatInput({
@@ -42,6 +43,7 @@ export default function ChatInput({
   userInput,
   setUserInput,
   handleKeyPress,
+  disabled = false,
 }: ChatInputProps) {
   const handleInputChange = useCallback(
     // TODO: sanitize
@@ -95,9 +97,9 @@ export default function ChatInput({
           </div>
           <button
             type="submit"
-            disabled={!/[a-zA-Z]/.test(userInput)}
+            disabled={!/[a-zA-Z]/.test(userInput) || disabled}
             className={`rounded-sm p-1.5 transition-colors max-xl:hidden ${
-              /[a-zA-Z]/.test(userInput)
+              /[a-zA-Z]/.test(userInput) || disabled
                 ? 'bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]'
                 : 'cursor-not-allowed bg-[#5788FA] text-zinc-950 opacity-50'
             }`}

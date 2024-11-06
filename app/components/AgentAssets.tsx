@@ -11,12 +11,14 @@ export default function AgentAssets() {
     }
     return ' flex items-center justify-center py-1';
   }, [tab]);
+
   const nftsClass = useMemo(() => {
     if (tab === 'nft') {
       return 'border-b border-[#5788FA] flex items-center justify-center py-1';
     }
     return ' flex items-center justify-center py-1';
   }, [tab]);
+
   const createdClass = useMemo(() => {
     if (tab === 'created') {
       return 'border-b border-[#5788FA] flex items-center justify-center py-1';
@@ -36,13 +38,25 @@ export default function AgentAssets() {
     <div className="mr-2 mb-4 rounded-sm  bg-black p-4">
       <div className="flex flex-col items-start gap-4">
         <div className="gap-6 flex border-b border-zinc-700 grow w-full">
-          <button onClick={handleTabChange('tokens')} className={tokensClass}>
+          <button
+            type="button"
+            onClick={handleTabChange('tokens')}
+            className={tokensClass}
+          >
             Tokens
           </button>
-          <button onClick={handleTabChange('nft')} className={nftsClass}>
+          <button
+            type="button"
+            onClick={handleTabChange('nft')}
+            className={nftsClass}
+          >
             NFTs
           </button>
-          <button onClick={handleTabChange('created')} className={createdClass}>
+          <button
+            type="button"
+            onClick={handleTabChange('created')}
+            className={createdClass}
+          >
             Created
           </button>
         </div>

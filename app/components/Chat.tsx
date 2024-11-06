@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { AgentMessage, Language, StreamEntry } from '../types';
+import type { AgentMessage, Language, StreamEntry } from '../types';
 import ChatInput from './ChatInput';
 import useChat from '../hooks/useChat';
 import StreamItem from './StreamItem';
@@ -72,6 +72,7 @@ export default function Chat({ className, currentLanguage }: ChatProps) {
     [handleSubmit],
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Dependency is required
   useEffect(() => {
     // scrolls to the bottom of the chat when messages change
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -106,6 +107,7 @@ export default function Chat({ className, currentLanguage }: ChatProps) {
         handleKeyPress={handleKeyPress}
         handleSubmit={handleSubmit}
         setUserInput={setUserInput}
+        disabled={isLoading}
       />
     </div>
   );

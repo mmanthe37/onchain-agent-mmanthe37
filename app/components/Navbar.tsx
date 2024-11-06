@@ -38,23 +38,33 @@ export default function Navbar({
       setIsMobileChatOpen(false);
     }
     setIsMobileMenuOpen(!isMobileMenuOpen);
-  }, [isMobileMenuOpen, isMobileChatOpen, setIsMobileMenuOpen]);
+  }, [
+    isMobileMenuOpen,
+    isMobileChatOpen,
+    setIsMobileChatOpen,
+    setIsMobileMenuOpen,
+  ]);
 
   const handleMobileChatClick = useCallback(() => {
     if (!isMobileChatOpen && isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
     setIsMobileChatOpen(!isMobileChatOpen);
-  }, [isMobileMenuOpen, isMobileChatOpen, setIsMobileChatOpen]);
+  }, [
+    isMobileMenuOpen,
+    isMobileChatOpen,
+    setIsMobileChatOpen,
+    setIsMobileMenuOpen,
+  ]);
 
   return (
     <div className="z-10 flex flex-col items-center justify-between border-[#5788FA]/50 border-b">
       <div className="md:hidden flex items-center justify-between border-[#5788FA]/50 border-b p-2 w-full">
-        <button onClick={handleMobileProfileClick}>
+        <button type="button" onClick={handleMobileProfileClick}>
           <WalletSvg />
         </button>
         <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
-        <button onClick={handleMobileChatClick}>
+        <button type="button" onClick={handleMobileChatClick}>
           <WalletSvg />
         </button>
       </div>
