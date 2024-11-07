@@ -1,8 +1,9 @@
 import { cn } from '@coinbase/onchainkit/theme';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { notoSansThai } from '../constants';
 import useChat from '../hooks/useChat';
 import type { AgentMessage, Language, StreamEntry } from '../types';
+import { generateUUID, markdownToPlainText } from '../utils';
 import ChatInput from './ChatInput';
 import StreamItem from './StreamItem';
 
@@ -15,30 +16,26 @@ type ChatProps = {
 export default function Chat({ className, currentLanguage }: ChatProps) {
   const [userInput, setUserInput] = useState('');
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
+  const conversationId = useMemo(() => {
+    return generateUUID();
+  }, []);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // TODO: revisit this logic
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
-    // const message = messages.find((res) => res.event === "agent");
-    const filteredMessages = messages.filter(
-      (msg) => msg.event !== 'completed',
-    );
-    const streams = filteredMessages.map((msg) => {
-      return {
-        timestamp: new Date(),
-        content: msg?.data || '',
-        type: msg?.event,
-      };
-    });
-    // const streamEntry = {
-    //   timestamp: new Date(),
-    //   content: message?.data || "",
-    // };
-    setStreamEntries((prev) => [...prev, ...streams]);
+    const message = messages.find((res) => res.event === 'agent');
+    const streamEntry: StreamEntry = {
+      timestamp: new Date(),
+      content: markdownToPlainText(message?.data || ''),
+      type: 'agent',
+    };
+    setStreamEntries((prev) => [...prev, streamEntry]);
   }, []);
 
-  const { postChat, isLoading } = useChat({ onSuccess: handleSuccess });
+  const { postChat, isLoading } = useChat({
+    onSuccess: handleSuccess,
+    conversationId,
+  });
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {

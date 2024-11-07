@@ -11,9 +11,13 @@ type UseChatResponse = {
 
 type UseChatProps = {
   onSuccess: (messages: AgentMessage[]) => void;
+  conversationId?: string;
 };
 
-export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
+export default function useChat({
+  onSuccess,
+  conversationId,
+}: UseChatProps): UseChatResponse {
   const [isLoading, setIsLoading] = useState(false);
 
   const postChat = useCallback(
@@ -21,12 +25,12 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
       setIsLoading(true);
 
       try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${API_URL}/api/chat`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ input }),
+          body: JSON.stringify({ input, conversation_id: conversationId }),
         });
 
         if (!response.ok) {
@@ -34,7 +38,6 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
         }
 
         const text = await response.text();
-        
         const parsedMessages = text
           .trim()
           .split('\n')
@@ -57,7 +60,7 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
         setIsLoading(false);
       }
     },
-    [onSuccess],
+    [conversationId, onSuccess],
   );
 
   return { postChat, isLoading };
