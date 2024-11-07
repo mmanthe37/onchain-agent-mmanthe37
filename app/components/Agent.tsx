@@ -48,7 +48,7 @@ export default function Agent() {
         <div
           className={`
           ${
-            isMobileChatOpen ? 'translate-y-0' : 'hidden'
+            isMobileChatOpen ? 'translate-y-0' : 'translate-x-full'
           } fixed top-0 z-8 flex h-full w-full flex-col overflow-y-auto bg-black pt-[100px] transition-transform duration-300 md:hidden`}
         >
           <Chat
