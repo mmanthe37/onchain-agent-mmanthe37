@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import useGetTokens from "../hooks/useGetTokens";
-// import useGetNFTs from "../hooks/useGetNFTs";
-import { Address } from "viem";
-import { useToken } from "wagmi";
 import { Token, TokenRow } from "@coinbase/onchainkit/token";
+import { useCallback, useEffect, useState } from "react";
+// import useGetNFTs from "../hooks/useGetNFTs";
+import type { Address } from "viem";
+import { useToken } from "wagmi";
+import useGetTokens from "../hooks/useGetTokens";
 
 type AgentTokenProps = {
   tokenAddress: Address;

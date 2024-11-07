@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import type { Language } from '../types';
+import AgentAssets from './AgentAssets';
 import AgentBalance from './AgentBalance';
 import AgentProfile from './AgentProfile';
 import Chat from './Chat';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Stream from './Stream';
-import AgentAssets from './AgentAssets';
 
 export default function Agent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

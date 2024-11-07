@@ -7,8 +7,8 @@ import {
 } from '../constants';
 import useChat from '../hooks/useChat';
 import { translations } from '../translations';
-import { generateUUID, markdownToPlainText } from '../utils';
 import type { AgentMessage, Language, StreamEntry } from '../types';
+import { generateUUID, markdownToPlainText } from '../utils';
 import StreamItem from './StreamItem';
 
 type StreamProps = {
