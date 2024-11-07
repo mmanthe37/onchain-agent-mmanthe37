@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTransactionCount } from 'wagmi';
 import {
   AGENT_WALLET_ADDRESS,
@@ -7,6 +7,7 @@ import {
 } from '../constants';
 import useChat from '../hooks/useChat';
 import { translations } from '../translations';
+import { generateUUID, markdownToPlainText } from '../utils';
 import type { AgentMessage, Language, StreamEntry } from '../types';
 import StreamItem from './StreamItem';
 
@@ -19,32 +20,28 @@ export default function Stream({ currentLanguage }: StreamProps) {
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
+  const conversationId = useMemo(() => {
+    return generateUUID();
+  }, []);
 
-  // TODO: revisit this logic
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
-    // const message = messages.find((res) => res.event === "agent");
-    const filteredMessages = messages.filter(
-      (msg) => msg.event !== 'completed',
-    );
-    const streams = filteredMessages.map((msg) => {
-      return {
-        timestamp: new Date(),
-        content: msg?.data || '',
-        type: msg?.event,
-      };
-    });
-    // const streamEntry = {
-    //   timestamp: new Date(),
-    //   content: message?.data || "",
-    // };
+    const message = messages.find((res) => res.event === 'agent');
+    const streamEntry: StreamEntry = {
+      timestamp: new Date(),
+      content: markdownToPlainText(message?.data || ''),
+      type: 'agent',
+    };
     setIsThinking(false);
-    setStreamEntries((prev) => [...prev, ...streams]);
+    setStreamEntries((prev) => [...prev, streamEntry]);
     setTimeout(() => {
       setIsThinking(true);
     }, 800);
   }, []);
 
-  const { postChat, isLoading } = useChat({ onSuccess: handleSuccess });
+  const { postChat, isLoading } = useChat({
+    onSuccess: handleSuccess,
+    conversationId,
+  });
 
   // enables live stream of agent thoughts
   useEffect(() => {
