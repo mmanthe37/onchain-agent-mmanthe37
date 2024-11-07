@@ -1,4 +1,4 @@
-import { Token, TokenRow } from '@coinbase/onchainkit/token';
+import { type Token, TokenRow } from '@coinbase/onchainkit/token';
 import { useCallback, useEffect, useState } from 'react';
 // import useGetNFTs from "../hooks/useGetNFTs";
 import type { Address } from 'viem';
@@ -20,7 +20,7 @@ function AgentToken({ tokenAddress }: AgentTokenProps) {
     image: '',
   };
 
-  return <TokenRow token={token} className="rounded max-w-56" />;
+  return <TokenRow token={token} className="max-w-56 rounded" />;
 }
 export default function AgentAssets() {
   const [tab, setTab] = useState('tokens');
@@ -56,7 +56,7 @@ export default function AgentAssets() {
             type="button"
             onClick={handleTabChange('tokens')}
             className={`flex items-center justify-center py-1 ${
-              tab === 'tokens' ? 'border-b border-[#5788FA]' : ''
+              tab === 'tokens' ? 'border-[#5788FA] border-b' : ''
             }`}
           >
             Tokens
