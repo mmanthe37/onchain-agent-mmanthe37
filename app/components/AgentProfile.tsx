@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
-import { translations } from '../translations';
 import type { Language } from '../types';
 
 type AgentProfileProps = {
@@ -17,7 +16,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
       .writeText(AGENT_WALLET_ADDRESS)
       .then(() => {
         setShowToast(true);
-        setTimeout(() => setShowToast(false), 2000); // Hide toast after 2 seconds
+        setTimeout(() => setShowToast(false), 2000);
       })
       .catch((err) => {
         console.error('Failed to copy wallet address: ', err);
@@ -59,7 +58,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
   }, []);
 
   return (
-    <div className="mb-4">
+    <div className="p-4">
       <div className="flex flex-col space-y-4 py-2">
         <div className="flex items-center space-x-5">
           <svg
@@ -99,12 +98,16 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </div>
         </div>
 
+        {/* TODO: update description */}
         <p
           className={`text-[#5788FA] text-base ${
             currentLanguage === 'th' ? notoSansThai.className : ''
           }`}
         >
-          {translations[currentLanguage].profile.bio}
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industrys standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
         </p>
       </div>
     </div>
