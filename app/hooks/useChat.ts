@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { API_URL } from '../config';
 import type { AgentMessage } from '../types';
 
 type UseChatResponse = {
@@ -20,7 +21,7 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
       setIsLoading(true);
 
       try {
-        const response = await fetch('http://localhost:3000/api/chat', {
+        const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -33,6 +34,7 @@ export default function useChat({ onSuccess }: UseChatProps): UseChatResponse {
         }
 
         const text = await response.text();
+        
         const parsedMessages = text
           .trim()
           .split('\n')
