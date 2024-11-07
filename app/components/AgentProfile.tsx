@@ -16,7 +16,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
       .writeText(AGENT_WALLET_ADDRESS)
       .then(() => {
         setShowToast(true);
-        setTimeout(() => setShowToast(false), 2000); // Hide toast after 2 seconds
+        setTimeout(() => setShowToast(false), 2000);
       })
       .catch((err) => {
         console.error('Failed to copy wallet address: ', err);
@@ -98,6 +98,7 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </div>
         </div>
 
+        {/* TODO: update description */}
         <p
           className={`text-[#5788FA] text-base ${
             currentLanguage === 'th' ? notoSansThai.className : ''

@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import type { Language } from '../types';
-import AgentAssets from './AgentAssets';
 import AgentBalance from './AgentBalance';
 import AgentProfile from './AgentProfile';
 import Chat from './Chat';
@@ -37,7 +36,6 @@ export default function Agent() {
         >
           <AgentProfile currentLanguage={currentLanguage} />
           <AgentBalance />
-          <AgentAssets />
         </div>
 
         <div className="flex w-full lg:w-2/3">
