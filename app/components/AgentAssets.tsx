@@ -1,9 +1,9 @@
-import { Token, TokenRow } from "@coinbase/onchainkit/token";
-import { useCallback, useEffect, useState } from "react";
+import { Token, TokenRow } from '@coinbase/onchainkit/token';
+import { useCallback, useEffect, useState } from 'react';
 // import useGetNFTs from "../hooks/useGetNFTs";
-import type { Address } from "viem";
-import { useToken } from "wagmi";
-import useGetTokens from "../hooks/useGetTokens";
+import type { Address } from 'viem';
+import { useToken } from 'wagmi';
+import useGetTokens from '../hooks/useGetTokens';
 
 type AgentTokenProps = {
   tokenAddress: Address;
@@ -17,15 +17,13 @@ function AgentToken({ tokenAddress }: AgentTokenProps) {
     decimals: data?.decimals || 0,
     name: data?.name || '',
     symbol: data?.symbol || '',
-    image: ''
+    image: '',
   };
 
-  return (
-    <TokenRow token={token} className="rounded max-w-56" />
-  );
+  return <TokenRow token={token} className="rounded max-w-56" />;
 }
 export default function AgentAssets() {
-  const [tab, setTab] = useState("tokens");
+  const [tab, setTab] = useState('tokens');
   // const [nfts, setNFTs] = useState<string[]>([]);
   const [tokens, setTokens] = useState<Address[]>([]);
 
@@ -56,16 +54,16 @@ export default function AgentAssets() {
           </button> */}
           <button
             type="button"
-            onClick={handleTabChange("tokens")}
+            onClick={handleTabChange('tokens')}
             className={`flex items-center justify-center py-1 ${
-              tab === "tokens" ? "border-b border-[#5788FA]" : ""
+              tab === 'tokens' ? 'border-b border-[#5788FA]' : ''
             }`}
           >
             Tokens
           </button>
         </div>
 
-        {tab === "tokens" &&
+        {tab === 'tokens' &&
           tokens &&
           tokens?.map((token) => (
             <AgentToken key={token} tokenAddress={token} />

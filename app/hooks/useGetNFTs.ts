@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { API_URL } from "../config";
+import { useCallback, useState } from 'react';
+import { API_URL } from '../config';
 
 type UseGetNFTsResponse = {
   NFTs?: string[];
@@ -22,9 +22,9 @@ export default function useGetNFTs({
 
     try {
       const response = await fetch(`${API_URL}/nfts`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -38,7 +38,7 @@ export default function useGetNFTs({
 
       return { nfts, error: null };
     } catch (error) {
-      console.error("Error fetching nfts:", error);
+      console.error('Error fetching nfts:', error);
       return { nfts: [], error: error as Error };
     } finally {
       setIsLoading(false);

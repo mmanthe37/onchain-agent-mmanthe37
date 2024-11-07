@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
-import type { Address } from "viem";
-import { API_URL } from "../config";
+import { useCallback, useState } from 'react';
+import type { Address } from 'viem';
+import { API_URL } from '../config';
 
 type UseGetTokensResponse = {
   tokens?: Address[];
@@ -23,9 +23,9 @@ export default function useGetTokens({
 
     try {
       const response = await fetch(`${API_URL}/tokens`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -36,9 +36,8 @@ export default function useGetTokens({
       const { tokens } = await response.json();
       onSuccess?.(tokens);
       return { tokens, error: null };
-
     } catch (error) {
-      console.error("Error fetching tokens:", error);
+      console.error('Error fetching tokens:', error);
       return { tokens: [], error: error as Error };
     } finally {
       setIsLoading(false);
