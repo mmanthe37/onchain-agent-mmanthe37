@@ -81,7 +81,7 @@ export default function AgentProfile() {
               <button
                 type="button"
                 onClick={copyToClipboard}
-                className="text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF] bg-blue-900 bg-opacity-30 p-1 rounded-sm px-2"
+                className="rounded-sm bg-blue-900 bg-opacity-30 p-1 px-2 text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF]"
               >
                 {formattedAddress}
               </button>

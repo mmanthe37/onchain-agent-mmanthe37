@@ -95,13 +95,13 @@ export default function Navbar({
             </span>
           </div>
           <div
-            className="text-xs text-zinc-400 sm:text-sm hidden md:flex"
+            className="hidden text-xs text-zinc-400 sm:text-sm md:flex"
             aria-live="polite"
           >
             {formatDateToBangkokTime(new Date())} ICT
           </div>
         </div>
-        <div className="flex  bg-black text-sm text-xs text-zinc-400 sm:text-sm ">
+        <div className="flex bg-black text-sm text-xs text-zinc-400 sm:text-sm ">
           <div className="hidden sm:flex">
             <span className="pr-1">Powered by</span>
             <a

@@ -9,7 +9,7 @@ export default function AgentBalance() {
 
   return (
     <div className="rounded-sm border-zinc-700">
-      <span className="text-base text-[#5788FA]">
+      <span className="text-[#5788FA] text-base">
         {`${Number.parseFloat(data?.formatted || '').toFixed(6)} ETH`}
       </span>
     </div>

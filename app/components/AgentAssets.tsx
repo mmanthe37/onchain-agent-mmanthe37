@@ -40,7 +40,7 @@ function AgentNFT({ index = 0, tokenAddress }: AgentAssetProps) {
       name,
       imageUrl: `https://raw.githubusercontent.com/coinbase/onchain-agent-demo/master/app/images/${(index + 1) % 8}.png`,
     };
-  }, [name]);
+  }, [name, index]);
 
   if (!name) {
     return null;
@@ -75,8 +75,8 @@ export default function AgentAssets() {
   }, [getNFTs, getTokens]);
 
   return (
-    <div className="w-full mr-2 mb-4 rounded-sm bg-black p-4 pb-10 lg:relative lg:z-0 lg:translate-x-0 border-[#5788FA]/50 border-t">
-      <h2 className="font-bold text-[#5788FA] text-xl pb-4">My creations</h2>
+    <div className="mr-2 mb-4 w-full rounded-sm border-[#5788FA]/50 border-t bg-black p-4 pb-10 lg:relative lg:z-0 lg:translate-x-0">
+      <h2 className="pb-4 font-bold text-[#5788FA] text-xl">My creations</h2>
       <div className="flex flex-col items-start gap-4">
         <div className="flex w-full grow gap-6 border-[#5788FA]/50 border-b">
           <button
