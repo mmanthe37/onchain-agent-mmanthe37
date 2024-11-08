@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import AgentAssets from './AgentAssets';
-import AgentBalance from './AgentBalance';
 import AgentProfile from './AgentProfile';
 import Chat from './Chat';
-import Footer from './Footer';
 import Navbar from './Navbar';
 import Stream from './Stream';
 
@@ -28,9 +26,7 @@ export default function Agent() {
           } fixed z-20 flex h-full w-full flex-col overflow-y-auto bg-black transition-transform duration-300 lg:relative lg:z-0 lg:w-1/3 lg:translate-x-0 lg:border-[#5788FA]/50 lg:border-r `}
         >
           <AgentProfile />
-          <AgentBalance />
           <AgentAssets />
-          <Footer />
         </div>
 
         <div className="flex w-full lg:w-2/3">
@@ -46,9 +42,6 @@ export default function Agent() {
         >
           <Stream className="flex w-full flex-col" />
         </div>
-      </div>
-      <div className="z-20 lg:hidden">
-        <Footer />
       </div>
     </div>
   );

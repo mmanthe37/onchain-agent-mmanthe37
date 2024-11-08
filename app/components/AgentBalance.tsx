@@ -7,13 +7,15 @@ export default function AgentBalance() {
     query: { refetchInterval: 5000 },
   });
 
+  if (!data) {
+    return null;
+  }
+
   return (
-    <div className="rounded-sm border-zinc-700 border-t bg-black p-4 pt-8">
-      <div className="flex flex-col items-start ">
-        <span className="font-bold text-3xl text-[#5788FA]">
-          {`${Number.parseFloat(data?.formatted || '').toFixed(6)} ETH`}
-        </span>
-      </div>
+    <div className="rounded-sm border-zinc-700">
+      <span className="text-[#5788FA] text-base">
+        {`${Number.parseFloat(data?.formatted || '').toFixed(6)} ETH`}
+      </span>
     </div>
   );
 }

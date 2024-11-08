@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AGENT_NAME, AGENT_WALLET_ADDRESS } from '../constants';
+import AgentBalance from './AgentBalance';
 
 export default function AgentProfile() {
   const [eyePosition, setEyePosition] = useState({ x: 50, y: 50 });
@@ -75,12 +76,12 @@ export default function AgentProfile() {
           </svg>
 
           <div className="flex flex-col justify-center space-y-2">
-            <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
-            <div className="group relative inline-flex items-center">
+            <div className="flex items-center justify-center gap-2">
+              <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
               <button
                 type="button"
                 onClick={copyToClipboard}
-                className="text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF]"
+                className="rounded-sm bg-blue-900 bg-opacity-30 p-1 px-2 text-[#5788FA] text-sm transition-colors hover:text-[#3D7BFF]"
               >
                 {formattedAddress}
               </button>
@@ -90,11 +91,14 @@ export default function AgentProfile() {
                 </div>
               )}
             </div>
+            <div className="group relative inline-flex items-center">
+              <AgentBalance />
+            </div>
           </div>
         </div>
 
         <p className="text-[#5788FA] text-base">
-          {`I'm your onchain concierge`}
+          I observe, imagine, and create onchain.
         </p>
       </div>
     </div>

@@ -10,6 +10,7 @@ import useGetTokens from '../hooks/useGetTokens';
 
 type AgentAssetProps = {
   tokenAddress: Address;
+  index?: number;
 };
 
 function AgentToken({ tokenAddress }: AgentAssetProps) {
@@ -26,7 +27,7 @@ function AgentToken({ tokenAddress }: AgentAssetProps) {
   return <TokenRow token={token} className="max-w-56 rounded font-mono" />;
 }
 
-function AgentNFT({ tokenAddress }: AgentAssetProps) {
+function AgentNFT({ index = 0, tokenAddress }: AgentAssetProps) {
   const { data: name } = useContractRead({
     address: tokenAddress,
     abi: erc721Abi,
@@ -37,15 +38,20 @@ function AgentNFT({ tokenAddress }: AgentAssetProps) {
   const nftData = useMemo(() => {
     return {
       name,
+      imageUrl: `https://raw.githubusercontent.com/coinbase/onchain-agent-demo/master/app/images/${(index + 1) % 8}.png`,
     };
-  }, [name]);
+  }, [name, index]);
 
   if (!name) {
     return null;
   }
 
   return (
-    <NFTMintCard contractAddress={tokenAddress} useNFTData={() => nftData}>
+    <NFTMintCard
+      className="max-w-72"
+      contractAddress={tokenAddress}
+      useNFTData={() => nftData}
+    >
       <NFTMedia />
       <NFTCollectionTitle className="font-mono text-sm" />
     </NFTMintCard>
@@ -69,9 +75,10 @@ export default function AgentAssets() {
   }, [getNFTs, getTokens]);
 
   return (
-    <div className="mr-2 mb-4 rounded-sm bg-black p-4">
+    <div className="mr-2 mb-4 w-full rounded-sm border-[#5788FA]/50 border-t bg-black p-4 pb-10 lg:relative lg:z-0 lg:translate-x-0">
+      <h2 className="pb-4 font-bold text-[#5788FA] text-xl">My creations</h2>
       <div className="flex flex-col items-start gap-4">
-        <div className="flex w-full grow gap-6 border-zinc-700 border-b">
+        <div className="flex w-full grow gap-6 border-[#5788FA]/50 border-b">
           <button
             type="button"
             onClick={handleTabChange('nfts')}
@@ -100,8 +107,8 @@ export default function AgentAssets() {
 
         {tab === 'nfts' && nfts && (
           <div className="grid-col-1 grid gap-4 sm:grid-cols-2">
-            {nfts?.map((nft) => (
-              <AgentNFT key={nft} tokenAddress={nft} />
+            {nfts?.map((nft, index) => (
+              <AgentNFT key={nft} tokenAddress={nft} index={index} />
             ))}
           </div>
         )}

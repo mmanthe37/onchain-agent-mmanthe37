@@ -21,7 +21,13 @@ export default function Stream({ className }: StreamProps) {
   }, []);
 
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
-    const message = messages.find((res) => res.event === 'agent');
+    let message = messages.find((res) => res.event === 'agent');
+    if (!message) {
+      message = messages.find((res) => res.event === 'tools');
+    }
+    if (!message) {
+      message = messages.find((res) => res.event === 'error');
+    }
     const streamEntry: StreamEntry = {
       timestamp: new Date(),
       content: markdownToPlainText(message?.data || ''),
@@ -45,7 +51,7 @@ export default function Stream({ className }: StreamProps) {
       if (!isLoading) {
         postChat(DEFAULT_PROMPT);
       }
-    }, 1500);
+    }, 6000);
 
     return () => {
       clearInterval(streamInterval);
