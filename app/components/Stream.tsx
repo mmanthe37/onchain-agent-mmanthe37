@@ -1,10 +1,10 @@
 import { cn } from '@coinbase/onchainkit/theme';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTransactionCount } from 'wagmi';
 import { AGENT_WALLET_ADDRESS, DEFAULT_PROMPT } from '../constants';
 import useChat from '../hooks/useChat';
 import type { AgentMessage, StreamEntry } from '../types';
-import { generateUUID, markdownToPlainText } from '../utils';
+import { markdownToPlainText } from '../utils';
 import StreamItem from './StreamItem';
 
 type StreamProps = {
