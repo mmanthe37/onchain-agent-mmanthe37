@@ -1,5 +1,6 @@
 import { NFTMintCard } from '@coinbase/onchainkit/nft';
 import { NFTCollectionTitle } from '@coinbase/onchainkit/nft/mint';
+import { NFTMedia } from '@coinbase/onchainkit/nft/view';
 import { type Token, TokenRow } from '@coinbase/onchainkit/token';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { type Address, erc721Abi } from 'viem';
@@ -45,6 +46,7 @@ function AgentNFT({ tokenAddress }: AgentAssetProps) {
 
   return (
     <NFTMintCard contractAddress={tokenAddress} useNFTData={() => nftData}>
+      <NFTMedia />
       <NFTCollectionTitle className="font-mono text-sm" />
     </NFTMintCard>
   );
