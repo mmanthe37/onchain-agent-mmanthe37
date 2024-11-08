@@ -1,19 +1,17 @@
 import { cn } from '@coinbase/onchainkit/theme';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { notoSansThai } from '../constants';
 import useChat from '../hooks/useChat';
-import type { AgentMessage, Language, StreamEntry } from '../types';
+import type { AgentMessage, StreamEntry } from '../types';
 import { generateUUID, markdownToPlainText } from '../utils';
 import ChatInput from './ChatInput';
 import StreamItem from './StreamItem';
 
 type ChatProps = {
-  currentLanguage: Language;
   enableLiveStream?: boolean;
   className?: string;
 };
 
-export default function Chat({ className, currentLanguage }: ChatProps) {
+export default function Chat({ className }: ChatProps) {
   const [userInput, setUserInput] = useState('');
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const conversationId = useMemo(() => {
@@ -83,19 +81,12 @@ export default function Chat({ className, currentLanguage }: ChatProps) {
       )}
     >
       <div className="flex grow flex-col overflow-y-auto p-4 pb-20">
-        <p
-          className={`text-zinc-500 ${
-            currentLanguage === 'th' ? notoSansThai.className : ''
-          }`}
-        >
-          Ask me something...
-        </p>
+        <p className="text-zinc-500">Ask me something...</p>
         <div className="mt-4 space-y-2" role="log" aria-live="polite">
           {streamEntries.map((entry, index) => (
             <StreamItem
               key={`${entry.timestamp.toDateString()}-${index}`}
               entry={entry}
-              currentLanguage={currentLanguage}
             />
           ))}
         </div>
@@ -104,7 +95,6 @@ export default function Chat({ className, currentLanguage }: ChatProps) {
       </div>
 
       <ChatInput
-        currentLanguage={currentLanguage}
         userInput={userInput}
         handleKeyPress={handleKeyPress}
         handleSubmit={handleSubmit}
