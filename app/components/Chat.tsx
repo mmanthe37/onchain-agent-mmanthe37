@@ -21,7 +21,13 @@ export default function Chat({ className }: ChatProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
-    const message = messages.find((res) => res.event === 'agent');
+    let message = messages.find((res) => res.event === 'agent');
+    if (!message) {
+      message = messages.find((res) => res.event === 'tools');
+    }
+    if (!message) {
+      message = messages.find((res) => res.event === 'error');
+    }
     const streamEntry: StreamEntry = {
       timestamp: new Date(),
       content: markdownToPlainText(message?.data || ''),
