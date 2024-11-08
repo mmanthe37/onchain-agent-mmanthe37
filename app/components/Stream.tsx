@@ -37,7 +37,7 @@ export default function Stream({ className }: StreamProps) {
     setStreamEntries((prev) => [...prev, streamEntry]);
     setTimeout(() => {
       setIsThinking(true);
-    }, 5000);
+    }, 800);
   }, []);
 
   const { postChat, isLoading } = useChat({
@@ -51,7 +51,7 @@ export default function Stream({ className }: StreamProps) {
       if (!isLoading) {
         postChat(DEFAULT_PROMPT);
       }
-    }, 1500);
+    }, 6000);
 
     return () => {
       clearInterval(streamInterval);
