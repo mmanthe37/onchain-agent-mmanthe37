@@ -1,11 +1,11 @@
-import { type Token, TokenRow } from '@coinbase/onchainkit/token';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import useGetNFTs from '../hooks/useGetNFTs';
-import { erc721Abi, type Address } from 'viem';
-import { useContractRead, useToken } from 'wagmi';
-import useGetTokens from '../hooks/useGetTokens';
 import { NFTMintCard } from '@coinbase/onchainkit/nft';
 import { NFTCollectionTitle } from '@coinbase/onchainkit/nft/mint';
+import { type Token, TokenRow } from '@coinbase/onchainkit/token';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { type Address, erc721Abi,  } from 'viem';
+import { useContractRead, useToken } from 'wagmi';
+import useGetNFTs from '../hooks/useGetNFTs';
+import useGetTokens from '../hooks/useGetTokens';
 
 type AgentAssetProps = {
   tokenAddress: Address;
