@@ -89,9 +89,9 @@ export default function Navbar({
             }
         `}
           />
-          <span className="text-sm text-zinc-50">Live on Base Sepolia</span>
+          <span className="sm:text-sm text-xs text-zinc-50">Live on Base Sepolia</span>
         </div>
-        <div className="text-sm" aria-live="polite">
+        <div className="sm:text-sm text-xs" aria-live="polite">
           {formatDateToBangkokTime(new Date())} ICT
         </div>
       </div>
