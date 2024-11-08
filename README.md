@@ -50,8 +50,6 @@ bun i
 bun dev
 ```
 
-This will concurrently start both the Next.js frontend.
-
 ## Development
 
 - Format code: `bun run format`
