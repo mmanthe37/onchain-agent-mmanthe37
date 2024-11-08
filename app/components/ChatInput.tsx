@@ -56,7 +56,7 @@ export default function ChatInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-auto flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-4 pb-10 md:mt-0 lg:pb-2"
+      className="mt-auto flex w-full flex-col border-[#5788FA]/50 border-t bg-black p-4 pb-2 md:mt-0"
     >
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">

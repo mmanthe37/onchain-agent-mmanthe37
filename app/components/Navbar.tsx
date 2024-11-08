@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AGENT_NAME, notoSansThai } from '../constants';
-import ChatSvg from '../svg/ChatSvg';
+import StreamSvg from '../svg/StreamSvg';
 import WalletSvg from '../svg/WalletSvg';
 import { translations } from '../translations';
 import type { Language } from '../types';
@@ -66,7 +66,7 @@ export default function Navbar({
         </button>
         <h2 className="font-bold text-[#5788FA] text-xl">{AGENT_NAME}</h2>
         <button type="button" onClick={handleMobileChatClick}>
-          <ChatSvg />
+          <StreamSvg />
         </button>
       </div>
       <div className="flex w-full justify-between p-2">

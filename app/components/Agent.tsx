@@ -38,6 +38,7 @@ export default function Agent() {
           <AgentProfile currentLanguage={currentLanguage} />
           <AgentBalance />
           <AgentAssets />
+          <Footer />
         </div>
 
         <div className="flex w-full lg:w-2/3">
@@ -57,7 +58,9 @@ export default function Agent() {
           />
         </div>
       </div>
-      <Footer />
+      <div className="lg:hidden z-20">
+        <Footer />
+      </div>
     </div>
   );
 }
