@@ -16,9 +16,6 @@ export default function Stream({ className }: StreamProps) {
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
-  const conversationId = useMemo(() => {
-    return generateUUID();
-  }, []);
 
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
     let message = messages.find((res) => res.event === 'agent');
@@ -42,7 +39,6 @@ export default function Stream({ className }: StreamProps) {
 
   const { postChat, isLoading } = useChat({
     onSuccess: handleSuccess,
-    conversationId,
   });
 
   // enables live stream of agent thoughts
