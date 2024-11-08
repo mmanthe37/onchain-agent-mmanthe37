@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="sm:text-sm text-xs flex p-4 mt-auto w-full z-30 text-sm text-zinc-400 bg-black md:border-[#5788FA]/50 md:border-t">
+    <div className="z-30 mt-auto flex w-full bg-black p-4 text-sm text-xs text-zinc-400 sm:text-sm md:border-[#5788FA]/50 md:border-t">
       Powered by{' '}
       <a
         href="https://onchainkit.xyz/"

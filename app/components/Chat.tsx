@@ -76,7 +76,7 @@ export default function Chat({ className }: ChatProps) {
   return (
     <div
       className={cn(
-        'flex h-full w-full md:w-1/2 flex-col md:flex border-[#5788FA]/50 md:border-r',
+        'flex h-full w-full flex-col border-[#5788FA]/50 md:flex md:w-1/2 md:border-r',
         className,
       )}
     >

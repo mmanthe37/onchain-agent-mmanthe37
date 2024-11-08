@@ -62,7 +62,7 @@ export default function Navbar({
   }
 
   return (
-    <div className="z-10 flex flex-col items-center justify-between bg-black border-[#5788FA]/50 border-b">
+    <div className="z-10 flex flex-col items-center justify-between border-[#5788FA]/50 border-b bg-black">
       <div className="flex w-full items-center justify-between border-[#5788FA]/50 border-b p-2 md:hidden">
         <button type="button" onClick={handleMobileProfileClick}>
           <WalletSvg />
@@ -89,11 +89,11 @@ export default function Navbar({
             }
         `}
           />
-          <span className="sm:text-sm text-xs text-zinc-50">
+          <span className="text-xs text-zinc-50 sm:text-sm">
             Live on Base Sepolia
           </span>
         </div>
-        <div className="sm:text-sm text-xs" aria-live="polite">
+        <div className="text-xs sm:text-sm" aria-live="polite">
           {formatDateToBangkokTime(new Date())} ICT
         </div>
       </div>

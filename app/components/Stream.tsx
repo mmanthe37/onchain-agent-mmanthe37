@@ -72,7 +72,7 @@ export default function Stream({ className }: StreamProps) {
   });
 
   return (
-    <div className={cn('flex w-full md:w-1/2 flex-col md:flex', className)}>
+    <div className={cn('flex w-full flex-col md:flex md:w-1/2', className)}>
       <div className="flex items-center border-[#5788FA]/50 border-b p-2">
         Total transactions: {transactionCount}
       </div>

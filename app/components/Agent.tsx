@@ -47,7 +47,7 @@ export default function Agent() {
           <Stream className="flex w-full flex-col" />
         </div>
       </div>
-      <div className="lg:hidden z-20">
+      <div className="z-20 lg:hidden">
         <Footer />
       </div>
     </div>

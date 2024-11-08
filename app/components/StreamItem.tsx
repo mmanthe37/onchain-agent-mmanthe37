@@ -13,7 +13,7 @@ const formatContent = (content: string) => {
   return content.split(urlRegex).map((part, index) =>
     urlRegex.test(part) ? (
       <a
-        key={index}
+        key={`${index}-${part}`}
         href={part}
         target="_blank"
         rel="noopener noreferrer"
@@ -22,7 +22,7 @@ const formatContent = (content: string) => {
         {part}
       </a>
     ) : (
-      <span key={index}>{part}</span>
+      <span key={`${index}-${part}`}>{part}</span>
     ),
   );
 };
@@ -32,7 +32,7 @@ export default function StreamItem({ entry }: StreamItemProps) {
     <div className="mb-2">
       <TimeDisplay timestamp={entry.timestamp} />
       <div
-        className={`flex items-center space-x-2 max-w-full ${entry?.type !== 'user' ? 'text-[#5788FA]' : 'text-gray-300'}`}
+        className={`flex max-w-full items-center space-x-2 ${entry?.type !== 'user' ? 'text-[#5788FA]' : 'text-gray-300'}`}
       >
         <span className="max-w-full text-wrap break-all">
           {' '}

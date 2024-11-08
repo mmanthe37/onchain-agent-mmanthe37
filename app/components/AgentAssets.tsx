@@ -74,7 +74,7 @@ export default function AgentAssets() {
             type="button"
             onClick={handleTabChange('nfts')}
             className={`flex items-center justify-center py-1 ${
-              tab === 'nfts' ? 'border-b border-[#5788FA]' : ''
+              tab === 'nfts' ? 'border-[#5788FA] border-b' : ''
             }`}
           >
             NFTs
@@ -97,7 +97,7 @@ export default function AgentAssets() {
           ))}
 
         {tab === 'nfts' && nfts && (
-          <div className="grid grid-col-1 sm:grid-cols-2 gap-4">
+          <div className="grid-col-1 grid gap-4 sm:grid-cols-2">
             {nfts?.map((nft) => (
               <AgentNFT key={nft} tokenAddress={nft} />
             ))}
