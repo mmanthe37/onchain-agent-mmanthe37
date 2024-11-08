@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
+import type { Address } from 'viem';
 import { API_URL } from '../config';
 
 type UseGetNFTsResponse = {
-  NFTs?: string[];
+  NFTs?: Address[];
   error?: Error;
   getNFTs: () => void;
   isLoading: boolean;
 };
 
 type UseGetNFTsProps = {
-  onSuccess: (nfts: string[]) => void;
+  onSuccess: (addresses: Address[]) => void;
 };
 
 export default function useGetNFTs({

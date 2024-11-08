@@ -1,5 +1,4 @@
-import { useCallback, useState } from 'react';
-import type { Language } from '../types';
+import { useState } from 'react';
 import AgentAssets from './AgentAssets';
 import AgentBalance from './AgentBalance';
 import AgentProfile from './AgentProfile';
@@ -11,11 +10,6 @@ import Stream from './Stream';
 export default function Agent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileChatOpen, setIsMobileChatOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
-
-  const handleLanguageChange = useCallback((lang: Language) => {
-    setCurrentLanguage(lang);
-  }, []);
 
   return (
     <div className="relative flex h-screen flex-col overflow-hidden bg-black font-mono text-[#5788FA]">
@@ -24,8 +18,6 @@ export default function Agent() {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
         isMobileChatOpen={isMobileChatOpen}
         setIsMobileChatOpen={setIsMobileChatOpen}
-        setCurrentLanguage={handleLanguageChange}
-        currentLanguage={currentLanguage}
       />
 
       <div className="relative flex flex-grow overflow-hidden">
@@ -35,14 +27,15 @@ export default function Agent() {
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           } fixed z-20 flex h-full w-full flex-col overflow-y-auto bg-black transition-transform duration-300 lg:relative lg:z-0 lg:w-1/3 lg:translate-x-0 lg:border-[#5788FA]/50 lg:border-r `}
         >
-          <AgentProfile currentLanguage={currentLanguage} />
+          <AgentProfile />
           <AgentBalance />
           <AgentAssets />
+          <Footer />
         </div>
 
         <div className="flex w-full lg:w-2/3">
-          <Stream currentLanguage={currentLanguage} />
-          <Chat currentLanguage={currentLanguage} className="hidden" />
+          <Chat />
+          <Stream className="hidden" />
         </div>
 
         <div
@@ -51,13 +44,12 @@ export default function Agent() {
             isMobileChatOpen ? 'translate-y-0' : 'translate-x-full'
           } fixed top-0 z-8 flex h-full w-full flex-col overflow-y-auto bg-black pt-[100px] transition-transform duration-300 md:hidden`}
         >
-          <Chat
-            currentLanguage={currentLanguage}
-            className="flex w-full flex-col"
-          />
+          <Stream className="flex w-full flex-col" />
         </div>
       </div>
-      <Footer />
+      <div className="z-20 lg:hidden">
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -1,12 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AGENT_NAME, AGENT_WALLET_ADDRESS, notoSansThai } from '../constants';
-import type { Language } from '../types';
+import { AGENT_NAME, AGENT_WALLET_ADDRESS } from '../constants';
 
-type AgentProfileProps = {
-  currentLanguage: Language;
-};
-
-export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
+export default function AgentProfile() {
   const [eyePosition, setEyePosition] = useState({ x: 50, y: 50 });
   const [showToast, setShowToast] = useState(false);
   const avatarRef = useRef<SVGSVGElement>(null);
@@ -98,16 +93,8 @@ export default function AgentProfile({ currentLanguage }: AgentProfileProps) {
           </div>
         </div>
 
-        {/* TODO: update description */}
-        <p
-          className={`text-[#5788FA] text-base ${
-            currentLanguage === 'th' ? notoSansThai.className : ''
-          }`}
-        >
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+        <p className="text-[#5788FA] text-base">
+          {`I'm your onchain concierge`}
         </p>
       </div>
     </div>

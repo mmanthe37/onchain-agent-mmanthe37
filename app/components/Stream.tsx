@@ -1,21 +1,17 @@
+import { cn } from '@coinbase/onchainkit/theme';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTransactionCount } from 'wagmi';
-import {
-  AGENT_WALLET_ADDRESS,
-  DEFAULT_PROMPT,
-  notoSansThai,
-} from '../constants';
+import { AGENT_WALLET_ADDRESS, DEFAULT_PROMPT } from '../constants';
 import useChat from '../hooks/useChat';
-import { translations } from '../translations';
-import type { AgentMessage, Language, StreamEntry } from '../types';
+import type { AgentMessage, StreamEntry } from '../types';
 import { generateUUID, markdownToPlainText } from '../utils';
 import StreamItem from './StreamItem';
 
 type StreamProps = {
-  currentLanguage: Language;
+  className?: string;
 };
 
-export default function Stream({ currentLanguage }: StreamProps) {
+export default function Stream({ className }: StreamProps) {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
@@ -58,12 +54,6 @@ export default function Stream({ currentLanguage }: StreamProps) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Dependency is required
   useEffect(() => {
-    // reset entries on language change
-    setStreamEntries([]);
-  }, [currentLanguage]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Dependency is required
-  useEffect(() => {
     // scrolls to the bottom of the chat when messages change
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [streamEntries]);
@@ -82,35 +72,24 @@ export default function Stream({ currentLanguage }: StreamProps) {
   });
 
   return (
-    <div className="flex w-1/2 w-full flex-grow flex-col border-[#5788FA]/50 md:border-r">
+    <div className={cn('flex w-full flex-col md:flex md:w-1/2', className)}>
       <div className="flex items-center border-[#5788FA]/50 border-b p-2">
         Total transactions: {transactionCount}
       </div>
       <div className="max-w-full flex-grow overflow-y-auto p-4 pb-20">
-        <p
-          className={`text-zinc-500 ${
-            currentLanguage === 'th' ? notoSansThai.className : ''
-          }`}
-        >
-          {translations[currentLanguage].stream.realTime}
-        </p>
+        <p className="text-zinc-500">Streaming real-time...</p>
         <div className="mt-4 space-y-2" role="log" aria-live="polite">
           {streamEntries.map((entry, index) => (
             <StreamItem
               key={`${entry.timestamp.toDateString()}-${index}`}
               entry={entry}
-              currentLanguage={currentLanguage}
             />
           ))}
         </div>
         {isThinking && (
           <div className="mt-4 flex items-center text-[#5788FA] opacity-70">
-            <span
-              className={`max-w-full font-mono ${
-                currentLanguage === 'th' ? notoSansThai.className : ''
-              }`}
-            >
-              {translations[currentLanguage].stream.thinking}
+            <span className="max-w-full font-mono">
+              Agent is thinking
               {loadingDots}
             </span>
           </div>

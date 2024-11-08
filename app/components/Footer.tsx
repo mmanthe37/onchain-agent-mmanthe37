@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="fixed bottom-4 left-4 z-30 text-sm text-zinc-400">
+    <div className="z-30 mt-auto flex w-full bg-black p-4 text-sm text-xs text-zinc-400 sm:text-sm md:border-[#5788FA]/50 md:border-t">
       Powered by{' '}
       <a
         href="https://onchainkit.xyz/"
@@ -11,7 +11,6 @@ export default function Footer() {
         OnchainKit
       </a>
       <span className="mx-2">·</span>
-      {/* TODO: Replace with a link to the template repo */}
       <a
         href="https://github.com/coinbase/onchain-agent-demo"
         target="_blank"
