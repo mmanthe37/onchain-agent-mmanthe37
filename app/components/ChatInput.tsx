@@ -87,19 +87,19 @@ export default function ChatInput({
             <PremadeChatInput
               setUserInput={setUserInput}
               currentLanguage={currentLanguage}
-              text="Create a new token with all the specifications"
+              text="What actions can you take?"
             />
             <PremadeChatInput
               setUserInput={setUserInput}
               currentLanguage={currentLanguage}
-              text={translations[currentLanguage].chat.suggestions.swap}
+              text="Deploy an NFT"
             />
           </div>
           <button
             type="submit"
             disabled={!/[a-zA-Z]/.test(userInput) || disabled}
             className={`rounded-sm p-1.5 transition-colors max-xl:hidden ${
-              /[a-zA-Z]/.test(userInput) || disabled
+              /[a-zA-Z]/.test(userInput) && !disabled
                 ? 'bg-[#5788FA] text-zinc-950 hover:bg-[#3D7BFF]'
                 : 'cursor-not-allowed bg-[#5788FA] text-zinc-950 opacity-50'
             }`}

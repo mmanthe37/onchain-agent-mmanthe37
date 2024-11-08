@@ -76,7 +76,12 @@ export default function Chat({ className, currentLanguage }: ChatProps) {
   }, [streamEntries]);
 
   return (
-    <div className={cn('flex h-full w-1/2 grow flex-col md:flex', className)}>
+    <div
+      className={cn(
+        'flex h-full w-full md:w-1/2 flex-col md:flex border-[#5788FA]/50 md:border-r',
+        className,
+      )}
+    >
       <div className="flex grow flex-col overflow-y-auto p-4 pb-20">
         <p
           className={`text-zinc-500 ${

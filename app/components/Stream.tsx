@@ -1,3 +1,4 @@
+import { cn } from '@coinbase/onchainkit/theme';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTransactionCount } from 'wagmi';
 import {
@@ -13,9 +14,10 @@ import StreamItem from './StreamItem';
 
 type StreamProps = {
   currentLanguage: Language;
+  className?: string;
 };
 
-export default function Stream({ currentLanguage }: StreamProps) {
+export default function Stream({ currentLanguage, className }: StreamProps) {
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
@@ -82,7 +84,7 @@ export default function Stream({ currentLanguage }: StreamProps) {
   });
 
   return (
-    <div className="flex w-1/2 w-full flex-grow flex-col border-[#5788FA]/50 md:border-r">
+    <div className={cn('flex w-full md:w-1/2 flex-col md:flex', className)}>
       <div className="flex items-center border-[#5788FA]/50 border-b p-2">
         Total transactions: {transactionCount}
       </div>

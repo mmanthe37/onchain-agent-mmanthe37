@@ -59,7 +59,7 @@ export default function Navbar({
   ]);
 
   return (
-    <div className="z-10 flex flex-col items-center justify-between border-[#5788FA]/50 border-b">
+    <div className="z-10 flex flex-col items-center justify-between bg-black border-[#5788FA]/50 border-b">
       <div className="flex w-full items-center justify-between border-[#5788FA]/50 border-b p-2 md:hidden">
         <button type="button" onClick={handleMobileProfileClick}>
           <WalletSvg />

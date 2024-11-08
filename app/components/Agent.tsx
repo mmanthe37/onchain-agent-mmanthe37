@@ -41,8 +41,8 @@ export default function Agent() {
         </div>
 
         <div className="flex w-full lg:w-2/3">
-          <Stream currentLanguage={currentLanguage} />
-          <Chat currentLanguage={currentLanguage} className="hidden" />
+          <Chat currentLanguage={currentLanguage} />
+          <Stream currentLanguage={currentLanguage} className="hidden" />
         </div>
 
         <div
@@ -51,7 +51,7 @@ export default function Agent() {
             isMobileChatOpen ? 'translate-y-0' : 'translate-x-full'
           } fixed top-0 z-8 flex h-full w-full flex-col overflow-y-auto bg-black pt-[100px] transition-transform duration-300 md:hidden`}
         >
-          <Chat
+          <Stream
             currentLanguage={currentLanguage}
             className="flex w-full flex-col"
           />
