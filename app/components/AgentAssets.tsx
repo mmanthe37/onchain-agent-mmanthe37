@@ -5,8 +5,6 @@ import { type Token, TokenRow } from '@coinbase/onchainkit/token';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { type Address, erc721Abi } from 'viem';
 import { useContractRead, useToken } from 'wagmi';
-import useGetNFTs from '../hooks/useGetNFTs';
-import useGetTokens from '../hooks/useGetTokens';
 
 type AgentAssetProps = {
   tokenAddress: Address;
@@ -57,13 +55,21 @@ function AgentNFT({ index = 0, tokenAddress }: AgentAssetProps) {
     </NFTMintCard>
   );
 }
-export default function AgentAssets() {
-  const [tab, setTab] = useState('tokens');
-  const [nfts, setNFTs] = useState<Address[]>([]);
-  const [tokens, setTokens] = useState<Address[]>([]);
 
-  const { getTokens } = useGetTokens({ onSuccess: setTokens });
-  const { getNFTs } = useGetNFTs({ onSuccess: setNFTs });
+type AgentAssetsProps = {
+  getTokens: () => void;
+  getNFTs: () => void;
+  nfts: Address[];
+  tokens: Address[];
+};
+
+export default function AgentAssets({
+  getTokens,
+  getNFTs,
+  tokens,
+  nfts,
+}: AgentAssetsProps) {
+  const [tab, setTab] = useState('tokens');
 
   const handleTabChange = useCallback((tab: string) => {
     return () => setTab(tab);
