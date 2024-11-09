@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { API_URL } from '../config';
 import type { AgentMessage } from '../types';
+import { generateUUID } from '../utils';
 
 type UseChatResponse = {
   messages?: AgentMessage[];
@@ -30,7 +31,10 @@ export default function useChat({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ input, conversation_id: conversationId }),
+          body: JSON.stringify({
+            input,
+            conversation_id: conversationId || generateUUID(),
+          }),
         });
 
         if (!response.ok) {

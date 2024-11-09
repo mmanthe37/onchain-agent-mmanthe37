@@ -1,10 +1,10 @@
 import { cn } from '@coinbase/onchainkit/theme';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTransactionCount } from 'wagmi';
 import { AGENT_WALLET_ADDRESS, DEFAULT_PROMPT } from '../constants';
 import useChat from '../hooks/useChat';
 import type { AgentMessage, StreamEntry } from '../types';
-import { generateUUID, markdownToPlainText } from '../utils';
+import { markdownToPlainText } from '../utils';
 import StreamItem from './StreamItem';
 
 type StreamProps = {
@@ -16,9 +16,6 @@ export default function Stream({ className }: StreamProps) {
   const [isThinking, setIsThinking] = useState(true);
   const [loadingDots, setLoadingDots] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
-  const conversationId = useMemo(() => {
-    return generateUUID();
-  }, []);
 
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
     let message = messages.find((res) => res.event === 'agent');
@@ -42,7 +39,6 @@ export default function Stream({ className }: StreamProps) {
 
   const { postChat, isLoading } = useChat({
     onSuccess: handleSuccess,
-    conversationId,
   });
 
   // enables live stream of agent thoughts
