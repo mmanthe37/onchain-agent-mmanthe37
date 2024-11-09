@@ -63,3 +63,5 @@ See [LICENSE.md](LICENSE.md) for details.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+Special shoutout to [Shu Ding](https://x.com/shuding) for his amazing generative UI for the NFT art.
