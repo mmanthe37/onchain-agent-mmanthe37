@@ -28,4 +28,5 @@ export type AnimatedData = {
 export type AgentMessage = {
   data?: string;
   event: 'agent' | 'tools' | 'completed' | 'error';
+  functions?: string[];
 };

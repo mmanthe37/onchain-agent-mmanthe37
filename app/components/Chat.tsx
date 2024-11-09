@@ -7,20 +7,47 @@ import ChatInput from './ChatInput';
 import StreamItem from './StreamItem';
 
 type ChatProps = {
-  enableLiveStream?: boolean;
   className?: string;
+  getNFTs: () => void;
+  getTokens: () => void;
 };
 
-export default function Chat({ className }: ChatProps) {
+export default function Chat({ className, getNFTs, getTokens }: ChatProps) {
   const [userInput, setUserInput] = useState('');
   const [streamEntries, setStreamEntries] = useState<StreamEntry[]>([]);
   const conversationId = useMemo(() => {
     return generateUUID();
   }, []);
 
+  const [shouldRefetchNFTs, setShouldRefetchNFTs] = useState(false);
+  const [shouldRefetchTokens, setShouldRefetchTokens] = useState(false);
+
+  useEffect(() => {
+    if (shouldRefetchNFTs) {
+      getNFTs();
+      setShouldRefetchNFTs(false);
+    }
+  }, [getNFTs, shouldRefetchNFTs]);
+
+  useEffect(() => {
+    if (shouldRefetchTokens) {
+      getTokens();
+      setShouldRefetchTokens(false);
+    }
+  }, [getTokens, shouldRefetchTokens]);
+
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const handleSuccess = useCallback((messages: AgentMessage[]) => {
+    const functions =
+      messages?.find((msg) => msg.event === 'tools')?.functions || [];
+    if (functions?.includes('deploy_nft')) {
+      setShouldRefetchNFTs(true);
+    }
+    if (functions?.includes('deploy_token')) {
+      setShouldRefetchTokens(true);
+    }
+
     let message = messages.find((res) => res.event === 'agent');
     if (!message) {
       message = messages.find((res) => res.event === 'tools');
