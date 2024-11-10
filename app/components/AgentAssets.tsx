@@ -36,7 +36,7 @@ function AgentNFT({ index = 0, tokenAddress }: AgentAssetProps) {
   const nftData = useMemo(() => {
     return {
       name,
-      imageUrl: `https://raw.githubusercontent.com/coinbase/onchain-agent-demo/master/app/images/${(index + 1) % 8}.png`,
+      imageUrl: `https://raw.githubusercontent.com/coinbase/onchain-agent-demo/master/app/images/${(index % 8) + 1}.png`,
     };
   }, [name, index]);
 
