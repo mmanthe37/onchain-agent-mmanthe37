@@ -22,7 +22,7 @@ function AgentToken({ tokenAddress }: AgentAssetProps) {
     image: '',
   };
 
-  return <TokenRow token={token} className="max-w-56 rounded font-mono" />;
+  return <TokenRow token={token} className="w-full rounded font-mono" />;
 }
 
 function AgentNFT({ index = 0, tokenAddress }: AgentAssetProps) {
