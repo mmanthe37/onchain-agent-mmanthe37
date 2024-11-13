@@ -58,7 +58,7 @@ export default function Navbar({
   ]);
 
   if (!isClient) {
-    return false;
+    return null;
   }
 
   return (
