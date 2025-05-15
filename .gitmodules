@@ -1,0 +1,9 @@
+[submodule "onchain-agent-mmanthe37"]
+	path = onchain-agent-mmanthe37
+	url = git@github.com:mmanthe37/onchain-agent-mmanthe37.git
+[submodule "advanced-sdk-ts"]
+	path = advanced-sdk-ts
+	url = git@github.com:mmanthe37/advanced-sdk-ts
+[submodule "onchainkit"]
+	path = onchainkit
+	url = git@github.com:mmanthe37/onchainkit.git
